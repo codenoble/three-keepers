@@ -13,6 +13,13 @@ html lang="en-us"
         #biolaSubHeader
           .overflow_wrapper
             .container
+              = form_tag people_path, method: :get, class: 'form-inline pull-right', style: 'margin-top: 12px' do
+                .input-group.pull-right
+                  input.form-control name="q" type="search" value=params[:q] autofocus=true style="min-width: 300px"
+                  .input-group-btn
+                    button.btn.btn-primary type="submit"
+                      = fa_icon 'search'
+
               ul.nav-list.nav-main
                 li = nav_link 'People', :people_path
 
