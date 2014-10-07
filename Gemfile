@@ -6,6 +6,7 @@ gem 'biola_frontend_toolkit', path: '../gems/biola-frontend-toolkit'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'kaminari-bootstrap'
+gem 'pinglish'
 gem 'rack-cas'
 gem 'sass-rails', '~> 4.0.3'
 gem 'therubyracer', platforms: :ruby
