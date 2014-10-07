@@ -1,0 +1,167 @@
+.row
+  .col-md-3
+    p.text-center
+      img.img-thumbnail src=photo(@person, :large)
+
+    - if @person.enabled == false
+      .alert.alert-warning role="alert"
+        =' fa_icon 'ban'
+        | Account disabled
+
+    - if @person.privacy == true
+      .alert.alert-danger role="alert"
+        =' fa_icon 'lock'
+        | FERPA Confidential
+
+  .col-md-9
+    h1
+      =' @person.first_name
+      = @person.last_name
+    span.text-muted UUID: #{@person.uuid}
+
+    .row
+      .col-md-6
+        h3 Name
+        dl.dl-horizontal
+          dt Frist Name
+          dd = @person.first_name
+          dt Preferred Name
+          dd = @person.preferred_name
+          dt Middle Name
+          dd = @person.middle_name
+          dt Last Name
+          dd = @person.last_name
+          dt Display Name
+          dd = @person.display_name
+
+        h3 Demographic
+        dl.dl-horizontal
+          dt Gender
+          dd = @person.gender
+          dt
+            ' Partial
+            abbr title="Social Security Number" SSN
+          dd
+            span.text-muted> XXX - XX -
+            = @person.partial_ssn
+          dt Birth Date
+          dd = @person.birth_date.try(:to_s, :long)
+
+        h3 Groups &amp; Permissions
+        dl.dl-horizontal
+          dt Affiliations
+          dd = @person.affiliations.try(:to_sentence)
+          dt Groups
+          dd = @person.groups.try(:to_sentence)
+          dt Entitlements
+          dd = @person.entitlements.try(:join, ', ')
+
+      .col-md-6
+        - if [:residence, :floor, :wing, :majors].any? { |att| @person.send(att).present? }
+          h3 Student Info
+          dl.dl-horizontal
+            dt Residence
+            dd = @person.residence
+            dt Floor
+            dd = @person.floor
+            dt Wing
+            dd = @person.wing
+            dt Majors
+            dd = @person.majors.try(:to_sentence)
+
+        - if [:department, :title, :employee_type, :full_time, :pay_type].any? { |att| @person.send(att).present? }
+          h3 Employee Info
+          dl.dl-horizontal
+            dt Department
+            dd = @person.department
+            dt Title
+            dd = @person.title
+            dt Employee Type
+            dd = @person.employee_type
+            dt Full-Time
+            dd = @person.full_time? ? 'Yes' : 'No'
+            dt Pay Type
+            dd = @person.pay_type
+
+    .row
+      .col-md-12
+        h2 IDs
+        table.table
+          tr
+            th Type
+            th Identifier
+          - @person.ids.each do |id|
+            tr
+              td = id.type
+              td = id.identifier
+
+        hr
+
+        h2 Emails
+        table.table
+          tr
+            th Type
+            th Address
+            th Primary
+          - @person.emails.each do |email|
+            tr
+              td = email.type
+              td = mail_to email.address, email.address
+              td = fa_icon(email.primary? ? 'check-square-o' : 'square-o')
+
+        hr
+
+        h2 Photos
+        table.table
+          tr
+            th Photo
+            th Type
+            th
+              abbr title="Uniform Resource Locator" URL
+            th Height
+            th Width
+          - @person.photos.each do |photo|
+            tr
+              td
+                / TODO: max-height and full size popup
+                img.img-rounded src=photo.url alt=photo.type
+              td = photo.type
+              td = link_to photo.url, photo.url
+              td = photo.height
+              td = photo.width
+
+        hr
+
+        h2 Phones
+        table.table
+          tr
+            th Type
+            th Number
+            th Primary
+          - @person.phones.each do |phone|
+            tr
+              td = phone.type
+              td = phone.number
+              td = fa_icon(phone.primary? ? 'check-square-o' : 'square-o')
+
+        hr
+
+        h2 Addresses
+        table.table
+          tr
+            th Type
+            th Street 1
+            th Street 2
+            th City
+            th State
+            th Zip
+            th Country
+          - @person.addresses.each do |address|
+            tr
+              td = address.type
+              td = address.street_1
+              td = address.street_2
+              td = address.city
+              td = address.state
+              td = address.zip
+              td = address.country

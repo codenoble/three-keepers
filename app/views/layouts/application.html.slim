@@ -1,0 +1,21 @@
+doctype html
+html lang="en-us"
+  head
+    title Accounts
+    / frontend_toolkit/head includes default html head tags and csrf_meta_tags
+    = render 'frontend_toolkit/head', title: 'Direcotry'
+    = stylesheet_link_tag 'application', media: 'all'
+
+  body class="#{controller_name} #{action_name}"
+    = render 'frontend_toolkit/header'
+    #body
+      #wrapperBiolaSubHeader
+        #biolaSubHeader
+          .overflow_wrapper
+            .container
+              ul.nav-list.nav-main
+                li = nav_link 'People', :people_path
+
+      .container-fluid style="padding-top: 20px"
+        == yield
+      = javascript_include_tag 'application'
