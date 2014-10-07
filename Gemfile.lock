@@ -1,12 +1,3 @@
-PATH
-  remote: ../gems/biola-frontend-toolkit
-  specs:
-    biola_frontend_toolkit (0.3.0)
-      bootstrap-sass (~> 3.1)
-      coffee-rails (~> 4.0)
-      font-awesome-rails (~> 4.2)
-      slim (~> 2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -45,6 +36,11 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    biola_frontend_toolkit (0.3.1)
+      bootstrap-sass (~> 3.1)
+      coffee-rails (~> 4.0)
+      font-awesome-rails (~> 4.2)
+      slim (~> 2.0)
     bootstrap-sass (3.2.0.0)
       sass (~> 3.2)
     bson (2.3.0)
@@ -173,7 +169,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  biola_frontend_toolkit!
+  biola_frontend_toolkit (>= 0.3.1)
   coffee-rails (~> 4.0.0)
   jquery-rails
   kaminari-bootstrap

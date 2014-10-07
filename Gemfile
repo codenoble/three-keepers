@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.6'
 
-gem 'biola_frontend_toolkit', path: '../gems/biola-frontend-toolkit'
+gem 'biola_frontend_toolkit', '>= 0.3.1'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'kaminari-bootstrap'
