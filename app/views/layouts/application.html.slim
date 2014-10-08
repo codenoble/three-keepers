@@ -13,9 +13,9 @@ html lang="en-us"
         #biolaSubHeader
           .overflow_wrapper
             .container
-              = form_tag people_path, method: :get, class: 'form-inline pull-right', style: 'margin-top: 12px' do
+              = form_tag people_path, method: :get, class: 'form-inline pull-right', id: 'search_form' do
                 .input-group.pull-right
-                  input.form-control name="q" type="search" value=params[:q] style="min-width: 300px"
+                  input.form-control name="q" type="search" value=params[:q]
                   .input-group-btn
                     button.btn.btn-primary type="submit"
                       = fa_icon 'search'
@@ -24,6 +24,6 @@ html lang="en-us"
                 li = nav_link 'People', :people_path
                 li = nav_link 'Syncinators', :syncinators_path
 
-      .container-fluid style="padding-top: 20px"
+      .page.container-fluid
         == yield
       = javascript_include_tag 'application'

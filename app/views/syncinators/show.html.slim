@@ -39,4 +39,4 @@ h2 Changesets
           - if changeset.modifier?
             = link_to changeset.modifier.name, changeset.modifier
 
-  = paginate @changesets
+  .pagination = paginate @changesets

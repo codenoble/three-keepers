@@ -21,7 +21,7 @@ class PeopleController < ApplicationController
       end
     end
 
-    @raw_people = people.asc(:last_name, :preferred_name).page(params[:page]).per(60)
+    @raw_people = people.asc(:last_name, :preferred_name).page(params[:page])
     @people = PersonPresenter.map(@raw_people)
   end
 
