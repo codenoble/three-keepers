@@ -1,0 +1,44 @@
+h1 = @syncinator.name
+=' fa_icon(@syncinator.queue_changes? ? 'check-square-o' : 'square-o')
+' Queue Changes
+' &nbsp;&nbsp;
+=' fa_icon(@syncinator.active? ? 'check-square-o' : 'square-o')
+| Active
+
+h2 Changesets
+- if !@syncinator.queue_changes?
+  .alert.alert-info
+    =' fa_icon 'info-circle', text: 'Change queueing has been disabled for this syncinator'
+
+- if @changesets.any?
+  table.table
+    tr
+      th Date
+      th Person
+      th Action
+      th Changed
+      th Status
+      th Modifier
+    - @changesets.each do |changeset|
+      tr
+        td title=changeset.created_at = changeset.created_at.to_date
+        td = link_to "#{changeset.person.preferred_name} #{changeset.person.last_name}", changeset.person
+        td #{changeset.action} #{changeset.scope}
+        td
+          - changeset.modified.keys.each do |field|
+            code =' field
+        td
+          - sync_log = changeset.change_syncs.find_by(syncinator: @syncinator).sync_logs.last
+          - if sync_log.nil?
+            | unsynced
+          - elsif sync_log.errored_at?
+            | error: #{sync_log.message}
+          - elsif sync_log.succeeded_at?
+            = sync_log.action
+          - else
+            | sync started #{time_ago_in_words(sync_log.started_at)}
+        td
+          - if changeset.modifier?
+            = link_to changeset.modifier.name, changeset.modifier
+
+  = paginate @changesets

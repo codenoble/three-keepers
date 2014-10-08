@@ -1,0 +1,15 @@
+table.table
+  tr
+    th Name
+    th Queue Size
+    th Active
+  - @syncinators.each do |syncinator|
+    tr class=('text-muted active' if !syncinator.active?)
+      td = link_to syncinator.name, syncinator, class: ('text-muted' if !syncinator.active?)
+      td
+        / TODO: helper for highlighting a high count
+        - if syncinator.queue_changes?
+          = syncinator.startable_changesets.count
+        - else
+          span.text-muted N/A
+      td = fa_icon(syncinator.active? ? 'check-square-o' : 'square-o')
