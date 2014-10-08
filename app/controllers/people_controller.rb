@@ -26,7 +26,6 @@ class PeopleController < ApplicationController
   end
 
   def show
-    person = Person.find(params[:id])
-    @person = PersonPresenter.new(person)
+    @person = PersonPresenter.find(params[:id])
   end
 end

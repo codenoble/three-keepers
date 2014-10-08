@@ -33,6 +33,10 @@ class ApplicationPresenter
     end
   end
 
+  def self.find(id)
+    new(model_class.find(id))
+  end
+
   def self.map(models)
     models.map { |model| self.new(model) }
   end

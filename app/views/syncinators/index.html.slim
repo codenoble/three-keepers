@@ -4,12 +4,12 @@ table.table
     th Queue Size
     th Active
   - @syncinators.each do |syncinator|
-    tr class=('text-muted active' if !syncinator.active?)
-      td = link_to syncinator.name, syncinator, class: ('text-muted' if !syncinator.active?)
+    tr class=('text-muted active' if syncinator.inactive?)
+      td = link_to syncinator.name, syncinator, class: ('text-muted' if syncinator.inactive?)
       td
         / TODO: helper for highlighting a high count
         - if syncinator.queue_changes?
-          = syncinator.startable_changesets.count
+          = syncinator.queue_count
         - else
           span.text-muted N/A
       td = fa_check(syncinator.active?)
