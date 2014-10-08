@@ -1,9 +1,7 @@
 h1 = @syncinator.name
-=' fa_icon(@syncinator.queue_changes? ? 'check-square-o' : 'square-o')
-' Queue Changes
+=' fa_check(@syncinator.queue_changes?, text: 'Queue Changes')
 ' &nbsp;&nbsp;
-=' fa_icon(@syncinator.active? ? 'check-square-o' : 'square-o')
-| Active
+=' fa_check(@syncinator.active?, text: 'Active')
 
 h2 Changesets
 - if !@syncinator.queue_changes?

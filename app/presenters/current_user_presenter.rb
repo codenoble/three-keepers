@@ -1,4 +1,4 @@
-class CurrentUser
+class CurrentUserPresenter
   ATTR_MAP = {
     first_name:   :eduPersonNickname,
     last_name:    :sn,

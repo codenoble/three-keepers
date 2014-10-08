@@ -3,20 +3,18 @@
     p.text-center
       img.img-thumbnail src=photo(@person, :large)
 
-    - if @person.enabled == false
+    - if @person.disabled?
       .alert.alert-warning role="alert"
         =' fa_icon 'ban'
         | Account disabled
 
-    - if @person.privacy == true
+    - if @person.privacy?
       .alert.alert-danger role="alert"
         =' fa_icon 'lock'
         | FERPA Confidential
 
   .col-md-9
-    h1
-      =' @person.first_name
-      = @person.last_name
+    h1 = @person.name
     span.text-muted UUID: #{@person.uuid}
 
     .row
@@ -45,19 +43,19 @@
             span.text-muted> XXX - XX -
             = @person.partial_ssn
           dt Birth Date
-          dd = @person.birth_date.try(:to_s, :long)
+          dd = @person.birth_date
 
         h3 Groups &amp; Permissions
         dl.dl-horizontal
           dt Affiliations
-          dd = @person.affiliations.try(:to_sentence)
+          dd = @person.affiliations
           dt Groups
-          dd = @person.groups.try(:to_sentence)
+          dd = @person.groups
           dt Entitlements
-          dd = @person.entitlements.try(:join, ', ')
+          dd = @person.entitlements
 
       .col-md-6
-        - if [:residence, :floor, :wing, :majors].any? { |att| @person.send(att).present? }
+        - if @person.student_info?
           h3 Student Info
           dl.dl-horizontal
             dt Residence
@@ -67,9 +65,9 @@
             dt Wing
             dd = @person.wing
             dt Majors
-            dd = @person.majors.try(:to_sentence)
+            dd = @person.majors
 
-        - if [:department, :title, :employee_type, :full_time, :pay_type].any? { |att| @person.send(att).present? }
+        - if @person.employee_info?
           h3 Employee Info
           dl.dl-horizontal
             dt Department
@@ -79,7 +77,7 @@
             dt Employee Type
             dd = @person.employee_type
             dt Full-Time
-            dd = @person.full_time? ? 'Yes' : 'No'
+            dd = @person.full_time
             dt Pay Type
             dd = @person.pay_type
 
@@ -107,7 +105,7 @@
             tr
               td = email.type
               td = mail_to email.address, email.address
-              td = fa_icon(email.primary? ? 'check-square-o' : 'square-o')
+              td = fa_check(email.primary?)
 
         hr
 
@@ -142,7 +140,7 @@
             tr
               td = phone.type
               td = phone.number
-              td = fa_icon(phone.primary? ? 'check-square-o' : 'square-o')
+              td = fa_check(phone.primary?)
 
         hr
 

@@ -5,12 +5,12 @@
         = link_to person, class: 'pull-left' do
           img.media-object.img-rounded src=photo(person) alt="Photo of #{person.first_name}"
         .media-body
-          h3.media-heading = link_to "#{person.preferred_name} #{person.last_name}", person, class: 'text-info'
+          h3.media-heading = link_to person.name, person, class: 'text-info'
           .text-muted
             - if person.affiliations?
               .affiliations
                 =' fa_icon 'university'
-                = person.affiliations.try(:to_sentence)
+                = person.affiliations
             - if person.department?
               .departments
                 =' fa_icon 'building'
@@ -18,13 +18,15 @@
             - if person.groups?
               .groups
                 =' fa_icon 'group'
-                = person.groups.try(:to_sentence)
-            .email
-              = mail_to person.emails.where(type: :university).first.try(:address) do
-                =' fa_icon 'envelope'
-                = person.emails.where(type: :university).first.try(:address)
-            .biola_id
-              =' fa_icon 'credit-card'
-              = person.ids.where(type: :biola_id).first.try(:identifier)
+                = person.groups
+            - if person.university_email?
+              .email
+                = mail_to person.university_email_address do
+                  =' fa_icon 'envelope'
+                  = person.university_email_address
+            - if person.biola_id?
+              .biola_id
+                =' fa_icon 'credit-card'
+                = person.biola_id
 
-= paginate @people
+= paginate @raw_people

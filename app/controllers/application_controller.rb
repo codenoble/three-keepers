@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   def current_user
-    @current_user ||= CurrentUser.new(session)
+    @current_user ||= CurrentUserPresenter.new(session)
   end
 
   protected

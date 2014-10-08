@@ -12,4 +12,4 @@ table.table
           = syncinator.startable_changesets.count
         - else
           span.text-muted N/A
-      td = fa_icon(syncinator.active? ? 'check-square-o' : 'square-o')
+      td = fa_check(syncinator.active?)
