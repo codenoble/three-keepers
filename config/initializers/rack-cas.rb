@@ -11,7 +11,7 @@ else
 
   extra_attributes = [:cn, :eduPersonNickname, :sn, :title, :department, :mail, :url, :eduPersonAffiliation, :eduPersonEntitlement]
   BeefyArm::Application.config.middleware.use Rack::CAS,
-    server_url: 'https://login.biola.edu/cas', # TODO: pull from Settings
+    server_url: Settings.cas.url,
     session_store: RackCAS::MongoidStore,
     extra_attributes_filter: extra_attributes
 end

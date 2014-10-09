@@ -1,0 +1,12 @@
+app:
+  name: Accounts
+  relative_url_root: /accounts
+
+secret_token: # set in settings.local.yml
+
+urn_namespaces:
+- "urn:biola:apps:beefy-arm:"
+- "urn:biola:apps:all:"
+
+cas:
+  url: "https://login.biola.edu/cas"

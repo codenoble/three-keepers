@@ -1,4 +1,4 @@
 BiolaFrontendToolkit.configure do |config|
-  config.app_name = 'Accounts' # TODO: pull from Settings
-  config.relative_root = '/' # TODO: pull from Settings
+  config.app_name = Settings.app.name
+  config.relative_root = Settings.app.relative_url_root
 end
