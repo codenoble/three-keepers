@@ -15,5 +15,6 @@
 /log/*.log
 /tmp
 
+/config/blazing.rb
 /config/mongoid.yml
 /config/newrelic.yml
