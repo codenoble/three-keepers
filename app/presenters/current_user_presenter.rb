@@ -34,6 +34,10 @@ class CurrentUserPresenter
     [first_name, last_name].compact.join(' ')
   end
 
+  def authenticated?
+    !username.nil?
+  end
+
   def authorized?
     # TODO: pull from Settings and make it more flexible
     Array(entitlements).include? 'urn:biola:apps:all:developer'

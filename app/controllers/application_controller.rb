@@ -11,7 +11,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate!
-    render_error_page(401) unless current_user.authorized?
+    if current_user.authenticated?
+      render_error_page(403) unless current_user.authorized?
+    else
+      render_error_page(401)
+    end
   end
 
   def render_error_page(status)
