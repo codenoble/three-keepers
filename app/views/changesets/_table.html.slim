@@ -1,13 +1,3 @@
-h1 = @syncinator.name
-=' fa_check(@syncinator.queue_changes?, text: 'Queue Changes')
-' &nbsp;&nbsp;
-=' fa_check(@syncinator.active?, text: 'Active')
-
-h2 Changesets
-- if !@syncinator.queue_changes?
-  .alert.alert-info
-    =' fa_icon 'info-circle', text: 'Change queueing has been disabled for this syncinator'
-
 - if @changesets.any?
   table.table
     tr

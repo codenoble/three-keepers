@@ -1,0 +1,43 @@
+h1 #{@changeset.title}
+dl.dl-horizontal
+  dt Changed
+  dd = @changeset.created_at.to_s(:long)
+  dt Person
+  dd = link_to @changeset.person.name, @changeset.person
+  dt Action
+  dd = @changeset.action
+  dt Scope
+  dd = @changeset.scope
+  dt Modifier
+  dd
+    - if @changeset.modifier?
+      = link_to @changeset.modifier.name, @changeset.modifier
+
+h3 Before
+code = @changeset.original
+
+h3 After
+code = @changeset.modified
+
+h2 Sync Logs
+- @changeset.change_syncs.each do |change_sync|
+  h3 = change_sync.syncinator
+  - if change_sync.sync_logs.empty?
+    .alert.alert-info = fa_icon 'info-circle', text: 'Unsynced'
+  - else
+    table.table
+      tr
+        th Started
+        th Status
+        th Action
+        th Message
+      - change_sync.sync_logs.each do |sync_log|
+        tr
+          td = sync_log.started_at.to_s(:short)
+          td
+            span class=sync_log.status_class title=sync_log.finished_at.try(:to_s, :long) data-toggle="tooltip"
+              = fa_icon sync_log.icon, text: sync_log.status
+          td = sync_log.action
+          td
+            - if sync_log.message?
+              code = sync_log.message

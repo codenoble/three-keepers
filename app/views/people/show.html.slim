@@ -83,7 +83,7 @@
 
     .row
       .col-md-12
-        h2 IDs
+        h3 IDs
         table.table
           tr
             th Type
@@ -95,7 +95,7 @@
 
         hr
 
-        h2 Emails
+        h3 Emails
         table.table
           tr
             th Type
@@ -109,7 +109,7 @@
 
         hr
 
-        h2 Photos
+        h3 Photos
         table.table
           tr
             th Photo
@@ -130,7 +130,7 @@
 
         hr
 
-        h2 Phones
+        h3 Phones
         table.table
           tr
             th Type
@@ -144,7 +144,7 @@
 
         hr
 
-        h2 Addresses
+        h3 Addresses
         table.table
           tr
             th Type
@@ -163,3 +163,23 @@
               td = address.state
               td = address.zip
               td = address.country
+
+    h2 Changes
+    - if @person.changesets.any?
+      table.table
+        tr
+          th Date
+          th Action
+          th Changed
+          th Status
+          th Modifier
+        - @person.changesets.each do |changeset|
+          tr
+            td title=changeset.created_at = link_to(changeset.created_at_date, changeset)
+            td = changeset.scoped_action
+            td = truncated_array(changeset.modified.keys)
+            td = changeset.status
+            td
+              - if changeset.modifier?
+                = link_to changeset.modifier.name, changeset.modifier
+

@@ -3,6 +3,10 @@ class PersonPresenter < ApplicationPresenter
   as_sentence :affiliations, :groups, :majors
   as_yes_no :full_time
 
+  def changesets
+    ChangesetPresenter.map(model.changesets.desc(:created_at))
+  end
+
   def name
     [model.preferred_name, model.last_name].join(' ').strip
   end
