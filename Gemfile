@@ -12,7 +12,6 @@ gem 'rack-cas'
 gem 'sass-rails', '~> 4.0.3'
 gem 'therubyracer', platforms: :ruby
 gem 'trogdir_models'
-gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 
 group :development do

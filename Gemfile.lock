@@ -156,8 +156,6 @@ GEM
       email_validator (~> 1.4)
       mongoid (~> 4.0)
       mongoid-history (~> 0.4)
-    turbolinks (2.4.0)
-      coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.5.3)
@@ -182,5 +180,4 @@ DEPENDENCIES
   spring
   therubyracer
   trogdir_models
-  turbolinks
   uglifier (>= 1.3.0)

@@ -13,7 +13,6 @@
 //= require biola-frontend-toolkit
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 
 $('[data-toggle=tooltip]').tooltip()
