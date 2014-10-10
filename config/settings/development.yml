@@ -1,2 +1,3 @@
 app:
+  host: beefy-arm.dev
   relative_url_root: /

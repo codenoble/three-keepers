@@ -67,6 +67,9 @@ GEM
     email_validator (1.4.0)
       activemodel
     erubis (2.7.0)
+    exception_notification (4.0.1)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     execjs (2.2.1)
     font-awesome-rails (4.2.0.0)
       railties (>= 3.2, < 5.0)
@@ -194,6 +197,7 @@ DEPENDENCIES
   biola_frontend_toolkit (>= 0.3.1)
   blazing
   coffee-rails (~> 4.0.0)
+  exception_notification
   jquery-rails
   kaminari-bootstrap
   newrelic_rpm

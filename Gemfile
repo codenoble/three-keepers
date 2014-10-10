@@ -23,3 +23,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'spring'
 end
+
+group :production do
+  gem 'exception_notification'
+end

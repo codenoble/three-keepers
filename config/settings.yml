@@ -1,5 +1,6 @@
 app:
   name: Accounts
+  host: apps.biola.edu
   relative_url_root: /accounts
 
 secret_token: # set in settings.local.yml
@@ -10,3 +11,14 @@ urn_namespaces:
 
 cas:
   url: "https://login.biola.edu/cas"
+
+email:
+  enabled: true
+  from: no-reply@biola.edu
+  developer: appdev@biola.edu
+  smtp:
+    server: postfix.biola.edu
+
+exceptions:
+  mail_to:
+  - appdev@biola.edu
