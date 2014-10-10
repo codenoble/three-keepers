@@ -11,6 +11,7 @@ gem 'kaminari-bootstrap'
 gem 'newrelic_rpm'
 gem 'pinglish'
 gem 'rack-cas'
+gem 'rack-ssl'
 gem 'rails_config'
 gem 'sass-rails', '~> 4.0.3'
 gem 'therubyracer', platforms: :ruby
