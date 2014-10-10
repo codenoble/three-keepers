@@ -5,7 +5,7 @@ require "action_mailer/railtie"
 
 Bundler.require(*Rails.groups)
 
-module BeefyArm
+module ThreeKeepers
   class Application < Rails::Application
     config.autoload_paths += %W(#{config.root}/app/presenters)
     config.time_zone = 'Pacific Time (US & Canada)'
