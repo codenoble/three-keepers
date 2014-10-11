@@ -4,7 +4,8 @@
 if Rails.env.test?
   require 'rack/fake_cas'
   # We use swap because FakeCAS is included in the middleware by a the RackCAS railtie by default
-  ThreeKeepers::Application.config.middleware.swap Rack::FakeCAS, Rack::FakeCAS
+  users = {'dev' => { 'eduPersonEntitlement' => ["#{Settings.urn_namespaces.first}developer"]}}
+  ThreeKeepers::Application.config.middleware.swap(Rack::FakeCAS, Rack::FakeCAS, {}, users)
 else
   require 'rack/cas'
   require 'rack-cas/session_store/mongoid'

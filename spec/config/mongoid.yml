@@ -1,0 +1,6 @@
+test:
+  sessions:
+    default:
+      database: three_keepers_test
+      hosts:
+        - localhost:27017
