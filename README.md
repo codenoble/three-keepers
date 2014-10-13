@@ -1,28 +1,49 @@
-== Three Keepers
+Three Keepers
+=============
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Build Status](https://travis-ci.org/biola/three-keepers.svg)](https://travis-ci.org/biola/three-keepers)
+[![Code Climate](https://codeclimate.com/github/biola/three-keepers/badges/gpa.svg)](https://codeclimate.com/github/biola/three-keepers)
 
-Things you may want to cover:
+Three Keepers is a front-end interface to the [trogdir-api](https://github.com/biola/trogdir-api) database.
 
-* Ruby version
+Requirements
+------------
 
-* System dependencies
+- Ruby
+- MongoDB
+- Rack compatible web server
+- CAS server
 
-* Configuration
+Installation
+------------
 
-* Database creation
+```bath
+git clone git@github.com:biola/three-keepers.git
+cd three-keepers
+bundle install
+cp config/mongoid.yml.example config/mongoid.yml
+cp config/settings.local.yml.example config/settings.local.yml
+```
 
-* Database initialization
+Configuration
+-------------
 
-* How to run the test suite
+Edit `config/mongoid.yml` and `config/settings.local.yml` accordingly.
 
-* Services (job queues, cache servers, search engines, etc.)
+`config/mongoid.yml` should be configured to use the same database as `trogdir-api`.
 
-* Deployment instructions
+Testing
+-------
 
-* ...
+Simply run `rspec` to run the automated test suite.
 
+Related Documentation
+---------------------
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+- [blazing](https://github.com/effkay/blazing)
+- [turnout](https://github.com/biola/turnout)
+- [pinglish](https://github.com/jbarnette/pinglish)
+
+License
+-------
+[MIT](https://github.com/biola/three-keepers/blob/master/MIT-LICENSE)
