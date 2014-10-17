@@ -121,7 +121,7 @@ GEM
       activesupport
       easy_diff
       mongoid (>= 3.0)
-    moped (2.0.0)
+    moped (2.0.1)
       bson (~> 2.2)
       connection_pool (~> 2.0)
       optionable (~> 0.2.0)
@@ -210,7 +210,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
-    trogdir_models (0.7.3)
+    trogdir_models (0.7.4)
       api-auth (~> 1.0)
       email_validator (~> 1.4)
       mongoid (~> 4.0)
