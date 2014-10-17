@@ -6,6 +6,6 @@ class SyncinatorPresenter < ApplicationPresenter
   end
 
   def queue_count
-    @queue_count ||= model.startable_changesets(Time.now).count
+    @queue_count ||= model.unfinished_changesets.count
   end
 end
