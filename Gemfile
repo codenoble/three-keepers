@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.6'
+gem 'rails', '4.1.7'
 
 gem 'biola_deploy'
 gem 'biola_frontend_toolkit', '>= 0.3.1'
@@ -13,7 +13,7 @@ gem 'pinglish'
 gem 'rack-cas'
 gem 'rack-ssl'
 gem 'rails_config'
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 4.0.4'
 gem 'therubyracer', platforms: :ruby
 gem 'trogdir_models'
 gem 'turnout'
