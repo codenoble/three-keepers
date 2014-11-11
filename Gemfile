@@ -36,6 +36,10 @@ group :test do
   gem 'rspec-rails'
 end
 
+group :staging, :production do
+  gem 'biola_logs'
+end
+
 group :production do
   gem 'exception_notification'
 end
