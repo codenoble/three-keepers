@@ -4,4 +4,3 @@ rvm:
 services:
   - mongodb
 cache: bundler
-script: rake
