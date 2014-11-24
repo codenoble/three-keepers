@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.7'
+gem 'rails', '4.1.7.1'
 
 gem 'biola_deploy'
 gem 'biola_frontend_toolkit', '>= 0.3.1'
