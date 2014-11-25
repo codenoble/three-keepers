@@ -6,6 +6,7 @@ class PeopleController < ApplicationController
       begin
         regex = Regexp.new(params[:q].gsub(/\s/, '.*'), Regexp::IGNORECASE)
         people = people.any_of(
+          {uuid: regex},
           {first_name: regex},
           {preferred_name: regex},
           {last_name: regex},
