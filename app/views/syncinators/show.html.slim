@@ -3,6 +3,13 @@ h1 = @syncinator.name
 ' &nbsp;&nbsp;
 =' fa_check(@syncinator.active?, text: 'Active')
 
+.btn-group.pull-right role="group"
+  = menu_block(class: 'btn btn-default') do |menu|
+    = menu.add_item('All', default: true) { syncinator_path(@syncinator.id, all: true) }
+    = menu.add_item('Unfinished') { syncinator_path(@syncinator.id, unfinished: true) }
+    = menu.add_item('Pending') { syncinator_path(@syncinator.id, pending: true) }
+    = menu.add_item('Errored') { syncinator_path(@syncinator.id, errored: true) }
+
 h2 Changesets
 - if !@syncinator.queue_changes?
   .alert.alert-info
