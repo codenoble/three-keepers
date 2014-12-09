@@ -32,7 +32,7 @@ h2 Sync Logs
         th Action
         th Message
       - change_sync.sync_logs.each do |sync_log|
-        tr
+        tr id=dom_id(change_sync)
           td = sync_log.started_at.to_s(:short)
           td
             span class=sync_log.status_class title=sync_log.finished_at.try(:to_s, :long) data-toggle="tooltip"
