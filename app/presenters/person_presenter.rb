@@ -1,6 +1,6 @@
 class PersonPresenter < ApplicationPresenter
   presents Person
-  as_sentence :affiliations, :groups, :majors
+  as_sentence :affiliations, :groups, :majors, :minors
   as_yes_no :full_time
 
   def changesets
@@ -28,7 +28,7 @@ class PersonPresenter < ApplicationPresenter
   end
 
   def student_info?
-    model.residence? || model.floor? || model.wing? || model.majors?
+    model.residence? || model.floor? || model.wing? || model.majors? || model.minors? || model.mailbox?
   end
 
   def employee_info?
