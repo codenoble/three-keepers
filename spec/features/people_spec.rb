@@ -54,7 +54,7 @@ describe 'people' do
         click_link 'People'
         click_link 'Frank Bennedetto'
         expect(page).to have_content 'Changes'
-        click_link Date.today.to_s
+        click_link Time.now.to_s(:shortish)
         expect(page).to have_content 'Create person record for Frank Bennedetto'
       end
     end

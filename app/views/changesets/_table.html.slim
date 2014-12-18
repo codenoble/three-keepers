@@ -9,7 +9,7 @@
       th Modifier
     - @changesets.each do |changeset|
       tr
-        td title=changeset.created_at = link_to(changeset.created_at_date, changeset)
+        td title=changeset.created_at = link_to(changeset.created_at_s, changeset)
         td = link_to changeset.person.name, changeset.person
         td = changeset.scoped_action
         td = truncated_array(changeset.modified.keys)
