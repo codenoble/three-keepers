@@ -1,32 +1,35 @@
-.media
-  ul.media-list.people
-    - @people.each do |person|
-      li.media.well.well-sm
-        = link_to person, class: 'pull-left' do
-          img.media-object.img-rounded src=photo(person) alt="Photo of #{person.first_name}"
-        .media-body
-          h3.media-heading = link_to person.name, person, class: 'text-info'
-          .text-muted
-            - if person.affiliations?
-              .affiliations
-                =' fa_icon 'university'
-                = person.affiliations
-            - if person.department?
-              .departments
-                =' fa_icon 'building'
-                = person.department
-            - if person.groups?
-              .groups
-                =' fa_icon 'group'
-                = person.groups
-            - if person.university_email?
-              .email
-                = mail_to person.university_email_address do
-                  =' fa_icon 'envelope'
-                  = person.university_email_address
-            - if person.biola_id?
-              .biola_id
-                =' fa_icon 'credit-card'
-                = person.biola_id
+- if params[:q] && @people.empty?
+  .alert.alert-info = fa_icon('info-circle', text: %{No results found for "#{params[:q]}"})
+- else
+  .media
+    ul.media-list.people
+      - @people.each do |person|
+        li.media.well.well-sm
+          = link_to person, class: 'pull-left' do
+            img.media-object.img-rounded src=photo(person) alt="Photo of #{person.first_name}"
+          .media-body
+            h3.media-heading = link_to person.name, person, class: 'text-info'
+            .text-muted
+              - if person.affiliations?
+                .affiliations
+                  =' fa_icon 'university'
+                  = person.affiliations
+              - if person.department?
+                .departments
+                  =' fa_icon 'building'
+                  = person.department
+              - if person.groups?
+                .groups
+                  =' fa_icon 'group'
+                  = person.groups
+              - if person.university_email?
+                .email
+                  = mail_to person.university_email_address do
+                    =' fa_icon 'envelope'
+                    = person.university_email_address
+              - if person.biola_id?
+                .biola_id
+                  =' fa_icon 'credit-card'
+                  = person.biola_id
 
-.pagination = paginate @raw_people
+  .pagination = paginate @raw_people
