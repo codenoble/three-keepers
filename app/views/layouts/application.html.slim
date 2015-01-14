@@ -25,5 +25,11 @@ html lang="en-us"
                 li = nav_link 'Syncinators', :syncinators_path
 
       .page.container-fluid
+        - if flash[:notice]
+          .alert.alert-info
+            = fa_icon 'info-circle', text: flash[:notice]
+        - if flash[:alert]
+          .alert.alert-danger
+            = fa_icon 'warning', text: flash[:alert]
         == yield
       = javascript_include_tag 'application'

@@ -36,4 +36,8 @@ class SyncLogPresenter < ApplicationPresenter
       'pending'
     end
   end
+
+  def succeeded?
+    model.succeeded_at?
+  end
 end
