@@ -179,7 +179,7 @@
           th Modifier
         - @person.changesets.each do |changeset|
           tr
-            td title=changeset.created_at = link_to(changeset.created_at_date, changeset)
+            td title=changeset.created_at = link_to(changeset.created_at_s, changeset)
             td = changeset.scoped_action
             td = truncated_array(changeset.modified.keys)
             td = changeset.status

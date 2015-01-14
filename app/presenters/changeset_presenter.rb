@@ -19,8 +19,8 @@ class ChangesetPresenter < ApplicationPresenter
     "#{model.action.titleize} #{model.scope} record for #{person.name}"
   end
 
-  def created_at_date
-    model.created_at.to_date
+  def created_at_s
+    model.created_at.to_formatted_s(:shortish)
   end
 
   def scoped_action

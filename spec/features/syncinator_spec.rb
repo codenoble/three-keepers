@@ -47,7 +47,7 @@ describe 'syncinators' do
           click_link 'Syncinators'
           click_link 'rather-dashing'
           expect(page).to have_content 'Change queueing has been disabled for this syncinator'
-          expect(page).to_not have_content Date.today.to_s
+          expect(page).to_not have_content Time.new.to_s(:shortish)
           expect(page).to_not have_content 'Poor Gary'
         end
       end
@@ -59,7 +59,7 @@ describe 'syncinators' do
           click_link 'trogador'
           expect(page).to have_content 'Changesets'
           expect(page).to_not have_content 'Change queueing has been disabled for this syncinator'
-          expect(page).to have_content Date.today.to_s
+          expect(page).to have_content Time.new.to_s(:shortish)
           expect(page).to have_content 'Poor Gary'
         end
 
@@ -67,7 +67,7 @@ describe 'syncinators' do
           visit root_path
           click_link 'Syncinators'
           click_link 'trogador'
-          click_link Date.today.to_s
+          click_link Time.new.to_s(:shortish)
           expect(page).to have_content 'Create person record for Poor Gary'
         end
 

@@ -16,7 +16,7 @@ describe 'changesets' do
         visit root_path
         click_link 'Syncinators'
         click_link 'trogador'
-        click_link Date.today.to_s
+        click_link Time.now.to_s(:shortish)
         expect(page).to have_content 'Create person record for Ron Cumberdale'
         expect(page).to have_content '3000' # partial_ssn
       end
@@ -25,7 +25,7 @@ describe 'changesets' do
         visit root_path
         click_link 'Syncinators'
         click_link 'trogador'
-        click_link Date.today.to_s
+        click_link Time.now.to_s(:shortish)
         expect(page).to have_content 'trogador'
         expect(page).to_not have_content 'rather-dashing'
       end
@@ -34,7 +34,7 @@ describe 'changesets' do
         visit root_path
         click_link 'Syncinators'
         click_link 'trogador'
-        click_link Date.today.to_s
+        click_link Time.now.to_s(:shortish)
         expect(page).to have_content 'Ron Cumberdale'
         click_link 'Ron Cumberdale'
         expect(page).to have_content 'Ron Cumberdale'
