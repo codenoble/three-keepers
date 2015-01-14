@@ -13,6 +13,10 @@ class ApplicationPresenter
     @model = model
   end
 
+  def to_param
+    model.to_param
+  end
+
   def self.as_sentence(*methods)
     methods.each do |meth|
       define_method "#{meth}?" do

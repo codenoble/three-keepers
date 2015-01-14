@@ -19,12 +19,18 @@ code = @changeset.original
 h3 After
 code = @changeset.modified
 
-h2 Sync Logs
+h2 style="margin-bottom: .7em;"Sync Logs
 - @changeset.change_syncs.each do |change_sync|
-  h3
-    =' change_sync.syncinator
-    - if change_sync.run_after? && change_sync.sync_logs.any?
-      small title=change_sync.run_after retry in #{time_ago_in_words(change_sync.run_after)}
+  .row
+    .col-md-8
+      h3 style="margin-top: 0;"
+        =' change_sync.syncinator
+        - if change_sync.run_after? && change_sync.sync_logs.any?
+          small title=change_sync.run_after retry in #{time_ago_in_words(change_sync.run_after)}
+    .col-md-4.text-right
+      - if change_sync.run_after.nil? && change_sync.succeeded?
+        = form_for [@changeset, change_sync] do
+          button.btn.btn-warning = fa_icon('refresh', text: 'Rerun')
   - if change_sync.sync_logs.empty?
     .alert.alert-info = fa_icon 'info-circle', text: 'Unsynced'
   - else
