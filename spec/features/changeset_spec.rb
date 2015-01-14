@@ -10,13 +10,15 @@ describe 'changesets' do
     let!(:syncinator_a) { create :syncinator, name: 'rather-dashing', queue_changes: false }
     let!(:syncinator_b) { create :syncinator, name: 'trogador', queue_changes: true }
     let!(:person) { create :person, last_name: 'Cumberdale', preferred_name: 'Ron', partial_ssn: '3000' }
+    let(:changeset) { person.changesets.first }
+    let(:changeset_name) { changeset.created_at.to_s(:shortish) }
 
     describe 'changeset#show' do
       it 'should show a changeset' do
         visit root_path
         click_link 'Syncinators'
         click_link 'trogador'
-        click_link Time.now.to_s(:shortish)
+        click_link changeset_name
         expect(page).to have_content 'Create person record for Ron Cumberdale'
         expect(page).to have_content '3000' # partial_ssn
       end
@@ -25,7 +27,7 @@ describe 'changesets' do
         visit root_path
         click_link 'Syncinators'
         click_link 'trogador'
-        click_link Time.now.to_s(:shortish)
+        click_link changeset_name
         expect(page).to have_content 'trogador'
         expect(page).to_not have_content 'rather-dashing'
       end
@@ -34,7 +36,7 @@ describe 'changesets' do
         visit root_path
         click_link 'Syncinators'
         click_link 'trogador'
-        click_link Time.now.to_s(:shortish)
+        click_link changeset_name
         expect(page).to have_content 'Ron Cumberdale'
         click_link 'Ron Cumberdale'
         expect(page).to have_content 'Ron Cumberdale'
@@ -44,7 +46,7 @@ describe 'changesets' do
 
       context 'with succeeded change_sync' do
         before do
-          change_sync = person.changesets.first.change_syncs.first
+          change_sync = changeset.change_syncs.first
 
           change_sync.run_after = nil
           change_sync.sync_logs << SyncLog.new(started_at: Time.now, succeeded_at: Time.now, action: 'create')
@@ -55,7 +57,7 @@ describe 'changesets' do
           visit root_path
           click_link 'Syncinators'
           click_link 'trogador'
-          click_link Date.today.to_s
+          click_link changeset_name
           expect(page).to have_button 'Rerun'
           click_button 'Rerun'
           expect(page).to have_content 'Sucessfully marked to be rerun'
@@ -68,7 +70,7 @@ describe 'changesets' do
           visit root_path
           click_link 'Syncinators'
           click_link 'trogador'
-          click_link Date.today.to_s
+          click_link changeset_name
           expect(page).to_not have_button 'Rerun'
         end
       end

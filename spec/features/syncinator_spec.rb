@@ -16,12 +16,10 @@ describe 'syncinators' do
 
   describe 'as a developer' do
     let(:username) { 'dev' }
-
-    before do
-      create :syncinator, name: 'rather-dashing', queue_changes: false
-      create :syncinator, name: 'trogador', queue_changes: true
-      create :person, last_name: 'Gary', preferred_name: 'Poor', partial_ssn: '3000'
-    end
+    let!(:syncinator_a) { create :syncinator, name: 'rather-dashing', queue_changes: false }
+    let!(:syncinator_b) { create :syncinator, name: 'trogador', queue_changes: true }
+    let!(:person) { create :person, last_name: 'Gary', preferred_name: 'Poor', partial_ssn: '3000' }
+    let(:changeset_name) { person.changesets.first.created_at.to_s(:shortish) }
 
     describe 'syncinators#index' do
       it 'should list syncinators' do
@@ -47,7 +45,7 @@ describe 'syncinators' do
           click_link 'Syncinators'
           click_link 'rather-dashing'
           expect(page).to have_content 'Change queueing has been disabled for this syncinator'
-          expect(page).to_not have_content Time.new.to_s(:shortish)
+          expect(page).to_not have_content changeset_name
           expect(page).to_not have_content 'Poor Gary'
         end
       end
@@ -59,7 +57,7 @@ describe 'syncinators' do
           click_link 'trogador'
           expect(page).to have_content 'Changesets'
           expect(page).to_not have_content 'Change queueing has been disabled for this syncinator'
-          expect(page).to have_content Time.new.to_s(:shortish)
+          expect(page).to have_content changeset_name
           expect(page).to have_content 'Poor Gary'
         end
 
@@ -67,7 +65,7 @@ describe 'syncinators' do
           visit root_path
           click_link 'Syncinators'
           click_link 'trogador'
-          click_link Time.new.to_s(:shortish)
+          click_link changeset_name
           expect(page).to have_content 'Create person record for Poor Gary'
         end
 

@@ -16,11 +16,8 @@ describe 'people' do
 
   describe 'as a developer' do
     let(:username) { 'dev' }
-
-    before do
-      create :person, last_name: 'Quackingstick', preferred_name: 'Lord'
-      create :person, last_name: 'Bennedetto', preferred_name: 'Frank', partial_ssn: '0486'
-    end
+    let!(:lord) { create :person, last_name: 'Quackingstick', preferred_name: 'Lord' }
+    let!(:frank) { create :person, last_name: 'Bennedetto', preferred_name: 'Frank', partial_ssn: '0486' }
 
     describe 'people#index' do
       it 'should list people' do
@@ -54,7 +51,7 @@ describe 'people' do
         click_link 'People'
         click_link 'Frank Bennedetto'
         expect(page).to have_content 'Changes'
-        click_link Time.now.to_s(:shortish)
+        click_link frank.changesets.first.created_at.to_s(:shortish)
         expect(page).to have_content 'Create person record for Frank Bennedetto'
       end
     end
