@@ -12,7 +12,7 @@
         td title=changeset.created_at = link_to(changeset.created_at_s, changeset)
         td = link_to changeset.person.name, changeset.person
         td = changeset.scoped_action
-        td = truncated_array(changeset.modified.keys)
+        td = truncated_array((changeset.modified.keys + changeset.original.keys).uniq)
         td = changeset.status_for(@syncinator)
         td
           - if changeset.modifier?
