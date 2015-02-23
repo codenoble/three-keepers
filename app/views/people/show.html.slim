@@ -1,3 +1,11 @@
+- @person.photos.each do |photo|
+  - if photo.height > Settings.views.photos.max_height
+    .modal.fade id=dom_id(photo) role="dialog"
+      .modal-dialog
+        .modal-content
+          .modal-body
+            img src=photo.url
+
 .row
   .col-md-3
     p.text-center
@@ -114,21 +122,23 @@
         hr
 
         h3 Photos
-        table.table
+        table.table.photos
           tr
             th Photo
             th Type
-            th
-              abbr title="Uniform Resource Locator" URL
+            th File
             th Height
             th Width
           - @person.photos.each do |photo|
             tr
-              td
-                / TODO: max-height and full size popup
-                img.img-rounded src=photo.url alt=photo.type
+              td.photo
+                - if photo.height > Settings.views.photos.max_height
+                  a data-toggle="modal" data-target="##{dom_id(photo)}"
+                    img.img-rounded.zoomable src=photo.url alt=photo.type
+                - else
+                  img.img-rounded src=photo.url alt=photo.type
               td = photo.type
-              td = link_to photo.url, photo.url
+              td.url = link_to File.basename(photo.url), photo.url
               td = photo.height
               td = photo.width
 
