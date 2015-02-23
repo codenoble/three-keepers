@@ -193,7 +193,7 @@
           tr
             td title=changeset.created_at = link_to(changeset.created_at_s, changeset)
             td = changeset.scoped_action
-            td = truncated_array(changeset.modified.keys)
+            td = truncated_array((changeset.modified.keys + changeset.original.keys).uniq)
             td = changeset.status
             td
               - if changeset.modifier?
