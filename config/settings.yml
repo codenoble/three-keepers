@@ -22,3 +22,7 @@ email:
 exceptions:
   mail_to:
   - appdev@biola.edu
+
+views:
+  photos:
+    max_height: 150
