@@ -48,8 +48,9 @@
             ' Partial
             abbr title="Social Security Number" SSN
           dd
-            span.text-muted> XXX - XX -
-            = @person.partial_ssn
+            - if @person.partial_ssn?
+              span.text-muted> XXX - XX -
+              = @person.partial_ssn
           dt Birth Date
           dd = @person.birth_date
 
