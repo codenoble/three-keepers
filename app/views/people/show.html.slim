@@ -139,7 +139,8 @@
                     img.img-rounded.zoomable src=photo.url alt=photo.type
                 - else
                   img.img-rounded src=photo.url alt=photo.type
-              td = photo.type
+              td
+                span.label.label-primary = photo.type
               td.url = link_to File.basename(photo.url), photo.url
               td = photo.height
               td = photo.width
