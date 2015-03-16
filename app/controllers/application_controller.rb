@@ -8,6 +8,15 @@ class ApplicationController < ActionController::Base
     @current_user ||= CurrentUserPresenter.new(session)
   end
 
+  # mongoid_userstamp is included in trogdir_models. In trogdir-api it gets used to track which
+  # Syncinator created and updated things. In this app that doesn't happen. It could be tied to
+  # Person but people don't write much and I feel it would just complicate things. So we're just
+  # setting the user to nil. This is mostly an issue in tests for factories anyway.
+  helper_method :null_person
+  def null_person
+    nil
+  end
+
   protected
 
   def authenticate!
