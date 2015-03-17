@@ -15,7 +15,7 @@
         td = truncated_array((changeset.modified.keys + changeset.original.keys).uniq)
         td = changeset.status_for(@syncinator)
         td
-          - if changeset.modifier?
-            = link_to changeset.modifier.name, changeset.modifier
+          - if changeset.created_by?
+            = link_to changeset.created_by.name, changeset.created_by
 
   .pagination = paginate @raw_changesets

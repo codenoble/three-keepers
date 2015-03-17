@@ -10,8 +10,8 @@ dl.dl-horizontal
   dd = @changeset.scope
   dt Modifier
   dd
-    - if @changeset.modifier?
-      = link_to @changeset.modifier.name, @changeset.modifier
+    - if @changeset.created_by?
+      = link_to @changeset.created_by.name, @changeset.created_by
 
 h3 Before
 code = @changeset.original
