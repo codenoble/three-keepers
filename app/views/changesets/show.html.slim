@@ -42,7 +42,7 @@ h2 style="margin-bottom: .7em;"Sync Logs
         th Message
       - change_sync.sync_logs.each do |sync_log|
         tr id=dom_id(change_sync)
-          td = sync_log.started_at.to_s(:short)
+          td = sync_log.started_at.try(:to_formatted_s,   :short)
           td
             span class=sync_log.status_class title=sync_log.finished_at.try(:to_s, :long) data-toggle="tooltip"
               = fa_icon sync_log.icon, text: sync_log.status
