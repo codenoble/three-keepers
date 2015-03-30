@@ -17,7 +17,7 @@ Requirements
 Installation
 ------------
 
-```bath
+```bash
 git clone git@github.com:biola/three-keepers.git
 cd three-keepers
 bundle install
