@@ -21,14 +21,19 @@ Installation
 git clone git@github.com:biola/three-keepers.git
 cd three-keepers
 bundle install
+cp config/blazing.yml.example config/blazing.yml
 cp config/mongoid.yml.example config/mongoid.yml
 cp config/settings.local.yml.example config/settings.local.yml
+cp config/newrelic.yml.example config/newrelic.yml
 ```
 
 Configuration
 -------------
 
-Edit `config/mongoid.yml` and `config/settings.local.yml` accordingly.
+- Edit `config/blazing.rb` accordingly
+- Edit `config/mongoid.yml` accordingly
+- Edit `config/settings.local.yml` accordingly
+- Edit `config/newrelic.yml` accordingly
 
 `config/mongoid.yml` should be configured to use the same database as `trogdir-api`.
 
