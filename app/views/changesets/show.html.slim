@@ -26,7 +26,10 @@ h2 style="margin-bottom: .7em;"Sync Logs
       h3 style="margin-top: 0;"
         =' change_sync.syncinator
         - if change_sync.run_after? && change_sync.sync_logs.any?
-          small title=change_sync.run_after retry in #{time_ago_in_words(change_sync.run_after)}
+          - if change_sync.run_after.past?
+            small title=change_sync.run_after available to retry #{time_ago_in_words(change_sync.run_after)} ago
+          - else
+            small title=change_sync.run_after available for retry in #{time_ago_in_words(change_sync.run_after)}
     .col-md-4.text-right
       - if change_sync.run_after.nil? && change_sync.succeeded?
         = form_for [@changeset, change_sync] do
