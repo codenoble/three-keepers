@@ -26,3 +26,6 @@ exceptions:
 views:
   photos:
     max_height: 150
+
+page:
+  per: 20

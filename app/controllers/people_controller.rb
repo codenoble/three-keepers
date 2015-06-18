@@ -44,5 +44,6 @@ class PeopleController < ApplicationController
 
   def show
     @person = PersonPresenter.find(params[:id])
+    @changesets = Kaminari.paginate_array(@person.changesets).page(params[:page]).per(Settings.page.per)
   end
 end

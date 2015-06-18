@@ -182,7 +182,7 @@
               td = address.country
 
     h2 Changes
-    - if @person.changesets.any?
+    - if @changesets.any?
       table.table
         tr
           th Date
@@ -190,7 +190,7 @@
           th Changed
           th Status
           th Modifier
-        - @person.changesets.each do |changeset|
+        - @changesets.each do |changeset|
           tr
             td title=changeset.created_at = link_to(changeset.created_at_s, changeset)
             td = changeset.scoped_action
@@ -199,4 +199,4 @@
             td
               - if changeset.created_by?
                 = link_to changeset.created_by.name, changeset.created_by
-
+  .pagination = paginate @changesets
