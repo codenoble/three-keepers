@@ -41,5 +41,5 @@ group :staging, :production do
 end
 
 group :production do
-  gem 'exception_notification'
+  gem 'sentry-raven'
 end
