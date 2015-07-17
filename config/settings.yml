@@ -19,13 +19,12 @@ email:
   smtp:
     server: postfix.biola.edu
 
-exceptions:
-  mail_to:
-  - appdev@biola.edu
-
 views:
   photos:
     max_height: 150
 
 page:
   per: 20
+
+sentry:
+  url: # Set in settings.local.yml
