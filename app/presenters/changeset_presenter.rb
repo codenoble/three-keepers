@@ -48,7 +48,7 @@ class ChangesetPresenter < ApplicationPresenter
     elsif sync_log.errored_at?
       Status.new(:error, 1, "error: #{sync_log.message}")
     elsif sync_log.succeeded_at?
-      options = {'create' => 4, 'update' => 5, 'skip' => 6}
+      options = {'destroy' => 4, 'create' => 5, 'update' => 6, 'skip' => 7}
       Status.new(:success, options[sync_log.action.to_s], sync_log.action.to_s)
     else
       Status.new(:started, 3, "sync started #{time_ago_in_words(sync_log.started_at)} ago")
