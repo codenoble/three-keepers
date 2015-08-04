@@ -37,7 +37,7 @@ h2 style="margin-bottom: .7em;"Sync Logs
   - if change_sync.sync_logs.empty?
     .alert.alert-info = fa_icon 'info-circle', text: 'Unsynced'
   - else
-    table.table
+    table.table.table-striped
       tr
         th Started
         th Status
