@@ -12,6 +12,12 @@ dl.dl-horizontal
   dd
     - if @changeset.created_by?
       = link_to @changeset.created_by.name, @changeset.created_by
+  - if @changeset.modified_by
+    dt Modified By
+    dd = @changeset.modified_by
+  - if @changeset.reason
+    dt Reason
+    dd = @changeset.reason
 
 h3 Before
 code = @changeset.original
