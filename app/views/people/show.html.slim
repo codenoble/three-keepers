@@ -199,4 +199,6 @@
             td
               - if changeset.created_by?
                 = link_to changeset.created_by.name, changeset.created_by
+              -else
+               = changeset.modified_by
   .pagination = paginate @changesets
