@@ -1,0 +1,10 @@
+table.table.table-striped
+  tr
+    th Address
+    th Owner
+    th Primary
+    th Schedule
+    th Exclusions
+    th State
+  - @emails.each do |email|
+    = render 'email', email: email

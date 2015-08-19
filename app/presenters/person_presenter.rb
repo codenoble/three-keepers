@@ -10,6 +10,7 @@ class PersonPresenter < ApplicationPresenter
   def name
     [model.preferred_name, model.last_name].join(' ').strip
   end
+  alias :to_s :name
 
   def disabled?
     model.enabled == false

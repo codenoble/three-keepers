@@ -1,0 +1,73 @@
+h1 = @email.address
+
+dl.dl-horizontal
+  dt Owner
+  dd = link_to @email.person, @email.person
+  dt Primary
+  dd
+    i.fa class=@email.primary_icon_class
+  dt Current State
+  dd class=@email.css_classes
+    i.fa> class=@email.icon_class
+    = @email.state
+
+h2 Deprovision Schedules
+- if @email.deprovision_schedules.empty?
+  .alert.alert-info
+    i.fa.fa-info-circle>
+    | No deprovision schedules were found
+- else
+  table.table.table-striped
+    tr
+      th Action
+      th Reason
+      th Scheduled
+      th Completed
+    - @email.deprovision_schedules.each do |sched|
+      tr class=(sched.canceled? ? 'canceled text-muted' : '')
+        td class=sched.css_classes
+          i.fa> class=sched.icon_class
+          = sched.action.titleize
+        td = sched.reason
+        td = sched.scheduled_for.to_formatted_s(:long)
+        td
+          - if sched.canceled?
+            | Canceled
+          - else
+            = sched.completed_at.try(:to_formatted_s, :long)
+
+h2 Exclusions
+- if @email.exclusions.empty?
+  .alert.alert-info
+    i.fa.fa-info-circle>
+    | No exclusions were found
+- else
+  table.table.table-striped
+    tr
+      th Start
+      th End
+      th Creator
+      th Reason
+    - @email.exclusions.each do |excl|
+      tr
+        td = excl.starts_at.to_formatted_s(:long)
+        td = excl.ends_at.try(:to_formatted_s, :long)
+        td = link_to excl.creator, excl.creator
+        td = excl.reason
+
+h2 Other Email Owners
+- if @other_emails.empty?
+  .alert.alert-info
+    i.fa.fa-info-circle>
+    | No other email owners were found
+- else
+  table.table.table-striped
+    tr
+      th Address
+      th Owner
+      th Primary
+      th Schedule
+      th Exclusions
+      th State
+    - @other_emails.each do |email|
+      = render 'email', email: email

@@ -1,0 +1,14 @@
+tr
+  td = link_to email.address, email_path(email.id)
+  td = link_to email.person, email.person
+  td
+    i.fa class=email.primary_icon_class
+  td
+    - email.deprovision_schedules.each do |sched|
+      i.fa> class="#{sched.css_classes} #{sched.icon_class}" data-toggle="popover" data-trigger="hover" data-placement="top" title=sched.action.titleize data-html="true" data-content="<strong>Reason:</strong> #{sched.reason}<br><strong>Scheduled for:</strong> #{sched.scheduled_for.to_formatted_s(:long)}<br><strong>Completed at:</strong> #{sched.completed_at.try(:to_formatted_s, :long)}<br><strong>Canceled?</strong>: #{sched.canceled? ? 'Yes' : 'No'}"
+      - unless sched == email.deprovision_schedules.last
+        i.fa.fa-caret-right.text-muted<>
+  td = email.exclusion_summary
+  td class=email.css_classes
+    i.fa> class=email.icon_class
+    = email.state

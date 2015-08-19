@@ -6,6 +6,8 @@ gem 'biola_deploy'
 gem 'biola_frontend_toolkit', '>= 0.3.1'
 gem 'blazing'
 gem 'coffee-rails', '~> 4.0.0'
+# FIXME: point at the real gem once it exists
+gem 'google_syncinator_api_client', github: 'codenoble/google-syncinator-api-client'
 gem 'jquery-rails', '~> 3.1.3'
 gem 'kaminari-bootstrap'
 gem 'newrelic_rpm'

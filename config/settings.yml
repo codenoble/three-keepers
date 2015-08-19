@@ -5,6 +5,15 @@ app:
 
 secret_token: # set in settings.local.yml
 
+google_syncinator:
+  scheme: http
+  host: google-syncinator.dev
+  port:
+  script_name:
+  version: v1
+  access_id: # set in settings.local.yml
+  secret_key: # set in settings.local.yml
+
 urn_namespaces:
 - "urn:biola:apps:three-keepers:"
 - "urn:biola:apps:all:"

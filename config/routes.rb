@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :people, only: [:index, :show]
+  resources :emails, only: [:index, :show]
   resources :syncinators, only: [:index, :show]
   resources :changesets, only: :show do
     resources :change_syncs, only: :update

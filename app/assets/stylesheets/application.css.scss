@@ -43,3 +43,20 @@ div.pagination {
   display: block;
   text-align: center;
 }
+
+i.fa.pending {
+  opacity: 0.5;
+}
+
+span.passed {
+  color: #777;
+}
+
+span.active {
+  color: #3c763d;
+  font-weight: bold;
+}
+
+span.upcoming {
+  color: #337ab7;
+}

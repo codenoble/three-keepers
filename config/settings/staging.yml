@@ -1,0 +1,4 @@
+google_syncinator:
+  scheme: https
+  host: api.staging.biola.edu
+  script_name: google-syncinator

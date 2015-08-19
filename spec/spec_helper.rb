@@ -7,6 +7,7 @@ Dir[Rails.root.join('spec/support/*.rb')].each {|f| require f}
 Mongoid.load!('spec/config/mongoid.yml')
 
 TrogdirModels.load_factories
+FactoryGirl.factories.clear
 FactoryGirl.find_definitions
 
 RSpec.configure do |config|

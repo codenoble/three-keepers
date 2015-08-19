@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/codenoble/google-syncinator-api-client.git
+  revision: eef6f3f8ff9e6cafc56ac22f28814a1eae3dacc2
+  specs:
+    google_syncinator_api_client (0.1.0)
+      api-auth (~> 1.0)
+      weary (~> 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -27,7 +35,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    addressable (2.3.6)
+    addressable (2.3.8)
     api-auth (1.3.1)
     arel (5.0.1.20140414130214)
     better_errors (2.0.0)
@@ -141,6 +149,7 @@ GEM
     origin (2.1.1)
     pinglish (0.2.0)
       rack
+    promise (0.3.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -200,6 +209,7 @@ GEM
       sprockets-rails (~> 2.0)
     sentry-raven (0.13.3)
       faraday (>= 0.7.6)
+    simple_oauth (0.3.1)
     slim (2.0.3)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -236,6 +246,12 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    weary (1.1.3)
+      addressable (~> 2.3)
+      multi_json (~> 1.7)
+      promise (~> 0.3.0)
+      rack (~> 1.5)
+      simple_oauth (~> 0.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -253,6 +269,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   factory_girl_rails
   faker
+  google_syncinator_api_client!
   jquery-rails (~> 3.1.3)
   kaminari-bootstrap
   newrelic_rpm
@@ -270,6 +287,3 @@ DEPENDENCIES
   trogdir_models
   turnout
   uglifier (>= 1.3.0)
-
-BUNDLED WITH
-   1.10.6
