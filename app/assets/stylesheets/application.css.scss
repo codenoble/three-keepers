@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require biola-frontend-toolkit
+ *= require jquery-ui/autocomplete
  *= require_tree .
  *= require_self
  */
@@ -37,6 +38,11 @@ html, body { min-height: 100%; }
   .page-header { margin-top: 0; }
   h1.title, h2.title, h3.title { margin-top: 0; }
   .container-fluid.page { margin: 30px auto; }
+}
+
+.field_with_errors .form-control{
+  color: #a94442;
+  border-color: #a94442;
 }
 
 div.pagination {

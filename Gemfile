@@ -9,12 +9,14 @@ gem 'coffee-rails', '~> 4.0.0'
 # FIXME: point at the real gem once it exists
 gem 'google_syncinator_api_client', github: 'codenoble/google-syncinator-api-client'
 gem 'jquery-rails', '~> 3.1.3'
+gem 'jquery-ui-rails'
 gem 'kaminari-bootstrap'
 gem 'newrelic_rpm'
 gem 'pinglish'
 gem 'rack-cas'
 gem 'rack-ssl'
 gem 'rails_config'
+gem 'reform'
 gem 'sass-rails', '~> 4.0.4'
 gem 'therubyracer', platforms: :ruby
 gem 'trogdir_models'
@@ -35,6 +37,7 @@ group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'launchy'
   gem 'rspec-rails'
 end
 

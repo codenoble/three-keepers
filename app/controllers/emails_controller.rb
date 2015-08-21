@@ -12,7 +12,7 @@ class EmailsController < ApplicationController
     response = GoogleSyncinator::APIClient::Emails.new.show(id: params[:id]).perform
 
     if response.status == 404
-      render file: "#{RAILS_ROOT}/public/404.html",  status: 404
+      render file: "#{Rails.root}/public/404.html",  status: 404
     else
       raw_email = response.parse
       @email = EmailPresenter.new(raw_email)
@@ -22,5 +22,34 @@ class EmailsController < ApplicationController
       end
       @other_emails = EmailPresenter.map(raw_other_emails)
     end
+  end
+
+  def new
+    @form = EmailForm.new(email_model)
+  end
+
+  def create
+    @form = EmailForm.new(email_model)
+
+    if @form.validate(params[:email])
+      @form.save do |hash|
+        response = GoogleSyncinator::APIClient::Emails.new.create(params[:email]).perform
+        if !response.success?
+          err_message = response.parse.has_key?('error') ? response.parse['error'] : response.body
+          flash.now[:alert] = "Error from API: #{err_message}"
+          render :new
+        else
+          redirect_to email_path(response.parse['id'])
+        end
+      end
+    else
+      render :new
+    end
+  end
+
+  private
+
+  def email_model
+    OpenStruct.new(uuid: nil, address: nil, primary: false)
   end
 end

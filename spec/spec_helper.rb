@@ -10,6 +10,8 @@ TrogdirModels.load_factories
 FactoryGirl.factories.clear
 FactoryGirl.find_definitions
 
+Capybara.asset_host = URI::HTTP.build(scheme: 'http', host: Settings.app.host).to_s
+
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 

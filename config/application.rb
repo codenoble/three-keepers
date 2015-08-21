@@ -9,6 +9,6 @@ module ThreeKeepers
   class Application < Rails::Application
     config.autoload_paths += %W(#{config.root}/app/presenters)
     config.time_zone = 'Pacific Time (US & Canada)'
-    config.eager_load_paths += %W(#{config.root}/lib)
+    config.eager_load_paths += %W(#{config.root}/lib #{config.root}/app/forms)
   end
 end
