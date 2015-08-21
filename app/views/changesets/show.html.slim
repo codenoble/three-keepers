@@ -37,13 +37,12 @@ h2 style="margin-bottom: .7em;"Sync Logs
           - else
             small title=change_sync.run_after available for retry in #{time_ago_in_words(change_sync.run_after)}
     .col-md-4.text-right
-      - if change_sync.run_after.nil? && change_sync.succeeded?
-        = form_for [@changeset, change_sync] do
-          button.btn.btn-warning = fa_icon('refresh', text: 'Rerun')
-      - elsif change_sync.run_after? && !change_sync.run_after.past?
-        = form_for [@changeset, change_sync] do
+      = form_for [@changeset, change_sync] do
+        - if change_sync.run_after? && !change_sync.run_after.past?
           button.btn.btn-primary = fa_icon('fast-forward', text: 'Rerun at next sync')
-        end
+        - elsif change_sync.run_after.nil? && change_sync.succeeded?
+          button.btn.btn-warning = fa_icon('refresh', text: 'Rerun')
+
   - if change_sync.sync_logs.empty?
     .alert.alert-info = fa_icon 'info-circle', text: 'Unsynced'
   - else
