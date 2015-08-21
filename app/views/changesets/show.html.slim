@@ -40,6 +40,10 @@ h2 style="margin-bottom: .7em;"Sync Logs
       - if change_sync.run_after.nil? && change_sync.succeeded?
         = form_for [@changeset, change_sync] do
           button.btn.btn-warning = fa_icon('refresh', text: 'Rerun')
+      - elsif change_sync.run_after? && !change_sync.run_after.past?
+        = form_for [@changeset, change_sync] do
+          button.btn.btn-primary = fa_icon('fast-forward', text: 'Rerun at next sync')
+        end
   - if change_sync.sync_logs.empty?
     .alert.alert-info = fa_icon 'info-circle', text: 'Unsynced'
   - else
