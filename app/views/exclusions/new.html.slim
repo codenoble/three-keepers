@@ -1,0 +1,19 @@
+h1 New Exclusion for #{@email}
+
+= form_for @form, url: email_exclusions_path(@email.id) do |f|
+  .row
+    .col-xs-4
+      .form-group
+        = f.label :starts_at, 'Start Time'
+        = f.text_field :starts_at, class: 'form-control chronic_ping', value: f.object.starts_at.presence.try(:strftime, '%B %-d, %Y at %I:%M%p')
+
+      .form-group
+        =' f.label :ends_at, 'End Time'
+        em.text-warning = fa_icon 'exclamation-triangle', text: 'Exclusion will never end if end time is left blank'
+        = f.text_field :ends_at, class: 'form-control chronic_ping'
+
+      .form-group
+        = f.label :reason
+        = f.text_area :reason, class: 'form-control'
+
+      = f.submit 'Create Exclusion', class: 'btn btn-success'

@@ -30,6 +30,11 @@ class CurrentUserPresenter
     end
   end
 
+  def uuid
+    # TODO: when the UUID is included in cas extra attributes this won't be necessary
+    @uuid ||= Person.elem_match(ids: {type: :netid, identifier: username}).first.uuid
+  end
+
   def name
     [first_name, last_name].compact.join(' ')
   end

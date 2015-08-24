@@ -43,6 +43,7 @@ class EmailsController < ApplicationController
         end
       end
     else
+      flash.now[:alert] = @form.errors.full_messages.join('. ') + '.'
       render :new
     end
   end

@@ -10,9 +10,14 @@ class EmailPresenter < ApplicationPresenter
   def address
     model['address']
   end
+  alias :to_s :address
 
   def person
     @person ||= PersonPresenter.new(person_model) if person_model.present?
+  end
+
+  def primary?
+    !!model['primary']
   end
 
   def primary_icon_class

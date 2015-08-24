@@ -36,6 +36,10 @@ h2 Deprovision Schedules
           - else
             = sched.completed_at.try(:to_formatted_s, :long)
 
+- if @email.primary?
+  .pull-right
+    = link_to new_email_exclusion_path(@email.id), class: 'btn btn-success' do
+      = fa_icon 'plus', text: 'New Exclusion'
 h2 Exclusions
 - if @email.exclusions.empty?
   .alert.alert-info
@@ -48,12 +52,16 @@ h2 Exclusions
       th End
       th Creator
       th Reason
+      th Action
     - @email.exclusions.each do |excl|
       tr
         td = excl.starts_at.to_formatted_s(:long)
-        td = excl.ends_at.try(:to_formatted_s, :long)
+        td = excl.ends_at.try(:to_formatted_s, :long) || '&infin;'.html_safe
         td = link_to excl.creator, excl.creator
         td = excl.reason
+        td
+          = link_to email_exclusion_path(@email.id, excl.id), class: 'btn btn-danger btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
+            = fa_icon 'trash', text: 'Delete'
 
 h2 Other Email Owners
 - if @other_emails.empty?

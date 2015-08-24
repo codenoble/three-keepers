@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   resources :people, only: [:index, :show] do
     get :search, on: :collection
   end
-  resources :emails, only: [:index, :show, :new, :create]
+  resources :emails, only: [:index, :show, :new, :create] do
+    resources :exclusions, only: [:new, :create, :destroy]
+  end
   resources :syncinators, only: [:index, :show]
   resources :changesets, only: :show do
     resources :change_syncs, only: :update

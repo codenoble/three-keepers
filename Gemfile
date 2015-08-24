@@ -5,6 +5,7 @@ gem 'rails', '4.1.7.1'
 gem 'biola_deploy'
 gem 'biola_frontend_toolkit', '>= 0.3.1'
 gem 'blazing'
+gem 'chronic_ping'
 gem 'coffee-rails', '~> 4.0.0'
 # FIXME: point at the real gem once it exists
 gem 'google_syncinator_api_client', github: 'codenoble/google-syncinator-api-client'
@@ -22,6 +23,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'trogdir_models'
 gem 'turnout'
 gem 'uglifier', '>= 1.3.0'
+gem 'virtus'
 
 group :development, :test do
   gem 'pry'

@@ -14,6 +14,7 @@
 //= require jquery
 //= require jquery-ui/autocomplete
 //= require jquery_ujs
+//= require chronic_ping
 //= require_tree .
 
 $('[data-toggle=tooltip]').tooltip()

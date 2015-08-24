@@ -1,7 +1,9 @@
 class EmailForm < Reform::Form
-  property :uuid
-  property :address
-  property :primary
+  include Coercion
+
+  property :uuid, type: String
+  property :address, type: String
+  property :primary, type: Boolean
 
   validates :uuid, :address, presence: true
 end

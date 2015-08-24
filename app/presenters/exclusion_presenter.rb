@@ -1,6 +1,10 @@
 class ExclusionPresenter < ApplicationPresenter
   presents Hash
 
+  def id
+    model['id']
+  end
+
   def creator
     @creator ||= PersonPresenter.new(person_model) if person_model.present?
   end
