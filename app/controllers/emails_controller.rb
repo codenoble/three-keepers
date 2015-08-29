@@ -1,4 +1,6 @@
 class EmailsController < ApplicationController
+  include EmailAPI
+
   def index
     page = params[:page] || 1
 
@@ -34,13 +36,8 @@ class EmailsController < ApplicationController
     if @form.validate(params[:email])
       @form.save do |hash|
         response = GoogleSyncinator::APIClient::Emails.new.create(params[:email]).perform
-        if !response.success?
-          err_message = response.parse.has_key?('error') ? response.parse['error'] : response.body
-          flash.now[:alert] = "Error from API: #{err_message}"
-          render :new
-        else
-          redirect_to email_path(response.parse['id'])
-        end
+
+        handle_response(response, email_id_param: 'id')
       end
     else
       flash.now[:alert] = @form.errors.full_messages.join('. ') + '.'

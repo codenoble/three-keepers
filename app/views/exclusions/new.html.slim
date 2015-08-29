@@ -5,7 +5,7 @@ h1 New Exclusion for #{@email}
     .col-xs-4
       .form-group
         = f.label :starts_at, 'Start Time'
-        = f.text_field :starts_at, class: 'form-control chronic_ping', value: f.object.starts_at.presence.try(:strftime, '%B %-d, %Y at %I:%M%p')
+        = f.text_field :starts_at, class: 'form-control chronic_ping', value: @form.starts_at.presence.try(:to_s, :chronic_ping)
 
       .form-group
         =' f.label :ends_at, 'End Time'

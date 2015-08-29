@@ -1,0 +1,18 @@
+h1 New Deprovision Schedule for #{@email}
+
+= form_for @form, url: email_deprovision_schedules_path(@email.id) do |f|
+  .row
+    .col-xs-4
+      .form-group
+        = f.label :action
+        = f.select :action, @form.action_options, {}, class: 'form-control'
+
+      .form-group
+        = f.label :scheduled_for, 'Scheduled Time'
+        = f.text_field :scheduled_for, class: 'form-control chronic_ping', value: @form.scheduled_for.presence.try(:to_s, :chronic_ping)
+
+      .form-group
+        = f.label :reason
+        = f.text_area :reason, class: 'form-control'
+
+      = f.submit 'Create Deprovision Schedule', class: 'btn btn-success'

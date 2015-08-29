@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
   resources :emails, only: [:index, :show, :new, :create] do
+    resources :deprovision_schedules, only: [:new, :create, :update, :destroy]
     resources :exclusions, only: [:new, :create, :destroy]
   end
   resources :syncinators, only: [:index, :show]

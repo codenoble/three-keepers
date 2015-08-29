@@ -54,7 +54,7 @@ describe 'exclusions' do
       end
     end
 
-    describe 'emails#destroy' do
+    describe 'exclusions#destroy' do
       before do
         expect_any_instance_of(GoogleSyncinator::APIClient::Exclusions).to receive(:destroy).with(email_id: email_hash['id'], id: exclusion_id).and_return double(perform: double(success?: true))
       end

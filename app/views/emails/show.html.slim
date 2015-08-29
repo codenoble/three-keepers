@@ -11,6 +11,10 @@ dl.dl-horizontal
     i.fa> class=@email.icon_class
     = @email.state
 
+- if @email.primary?
+  .pull-right
+    = link_to new_email_deprovision_schedule_path(@email.id), class: 'btn btn-success' do
+      = fa_icon 'plus', text: 'New Deprovision Schedule'
 h2 Deprovision Schedules
 - if @email.deprovision_schedules.empty?
   .alert.alert-info
@@ -23,6 +27,7 @@ h2 Deprovision Schedules
       th Reason
       th Scheduled
       th Completed
+      th Action
     - @email.deprovision_schedules.each do |sched|
       tr class=(sched.canceled? ? 'canceled text-muted' : '')
         td class=sched.css_classes
@@ -35,6 +40,11 @@ h2 Deprovision Schedules
             | Canceled
           - else
             = sched.completed_at.try(:to_formatted_s, :long)
+        td
+          =' link_to email_deprovision_schedule_path(@email.id, sched.id, canceled: true), class: "btn btn-warning btn-xs #{sched.canceled? ? 'disabled' : ''}", method: :put, data: {confirm: 'Are you sure?'} do
+            = fa_icon 'ban', text: 'Cancel'
+          = link_to email_deprovision_schedule_path(@email.id, sched.id), class: 'btn btn-danger btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
+            = fa_icon 'trash', text: 'Delete'
 
 - if @email.primary?
   .pull-right
@@ -59,9 +69,8 @@ h2 Exclusions
         td = excl.ends_at.try(:to_formatted_s, :long) || '&infin;'.html_safe
         td = link_to excl.creator, excl.creator
         td = excl.reason
-        td
-          = link_to email_exclusion_path(@email.id, excl.id), class: 'btn btn-danger btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
-            = fa_icon 'trash', text: 'Delete'
+        td = link_to email_exclusion_path(@email.id, excl.id), class: 'btn btn-danger btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
+          = fa_icon 'trash', text: 'Delete'
 
 h2 Other Email Owners
 - if @other_emails.empty?

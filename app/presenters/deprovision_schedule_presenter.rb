@@ -3,6 +3,10 @@ class DeprovisionSchedulePresenter < ApplicationPresenter
   #   present a database object but a hash works fine too.
   presents Hash
 
+  def id
+    model['id']
+  end
+
   def action
     model['action']
   end
