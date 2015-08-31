@@ -6,6 +6,7 @@ describe 'emails' do
   let(:address) { 'frank.bennedetto@biola.edu' }
   let(:person) { create(:person, first_name: 'Frank', last_name: 'Bennedetto', partial_ssn: '0486') }
   let(:email_hashes) { [build(:email_hash, uuid: person.uuid, address: address), build(:email_hash)] }
+  let(:headers) { {'x-page' => 1, 'x-total-pages' => 1, 'x-limit-value' => 2} }
   before { login_as username }
 
   describe 'as an unauthorized user' do
@@ -21,18 +22,31 @@ describe 'emails' do
     let(:username) { 'dev' }
 
     describe 'emails#index' do
-      before { allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(page: 1).and_return double(perform: double(parse: email_hashes)) }
+      before { allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with({}).and_return double(perform: double(headers: headers, parse: email_hashes)) }
 
-      it 'should list emails' do
+      it 'should list all emails' do
         visit root_path
         click_link 'Emails'
-        expect(page).to have_content email_hashes.first[:address]
-        expect(page).to have_content email_hashes.last[:address]
+        expect(page).to have_content email_hashes.first['address']
+        expect(page).to have_content email_hashes.last['address']
+      end
+
+      context 'when searching' do
+        before { allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with('q' => 'frank').and_return double(perform: double(headers: headers, parse: [email_hashes.first])) }
+
+        it 'should list emailes matching search' do
+          visit root_path
+          click_link 'Emails'
+          fill_in 'q', with: 'frank'
+          click_button 'search_button'
+          expect(page).to have_content email_hashes.first['address']
+          expect(page).to_not have_content email_hashes.last['address']
+        end
       end
     end
 
     describe 'emails#show' do
-      before { allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(page: 1).and_return double(perform: double(parse: email_hashes)) }
+      before { allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with({}).and_return double(perform: double(headers: headers, parse: email_hashes)) }
       before { expect_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:show).and_return double(perform: double(status: 200, parse: email_hashes.first)) }
       before { allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(q: address).and_return double(perform: double(parse: [])) }
 
@@ -55,7 +69,7 @@ describe 'emails' do
 
     describe 'emails#new' do
       before do
-        allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(page: 1).and_return double(perform: double(parse: email_hashes))
+        allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with({}).and_return double(perform: double(headers: headers, parse: email_hashes))
         expect_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:create).with('uuid' => person.uuid, 'address' => address, 'primary' => '1').and_return double(perform: double(success?: true, parse: email_hashes.first))
         expect_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:show).and_return double(perform: double(status: 200, parse: email_hashes.first))
         allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(q: address).and_return double(perform: double(parse: []))

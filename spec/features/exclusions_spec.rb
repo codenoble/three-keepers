@@ -9,6 +9,7 @@ describe 'exclusions' do
   let(:person) { create(:person, first_name: 'Frank', last_name: 'Bennedetto', partial_ssn: '0486') }
   let(:email_hash) { build(:email_hash, uuid: person.uuid, address: address, exclusions: [{'id' => exclusion_id, 'starts_at' => Time.now.to_s, 'reason' => reason}]) }
   let(:email_hashes) { [email_hash, build(:email_hash)] }
+  let(:headers) { {'x-page' => 1, 'x-total-pages' => 1, 'x-limit-value' => 2} }
   before { login_as username }
 
   describe 'as an unauthorized user' do
@@ -24,7 +25,7 @@ describe 'exclusions' do
     let(:username) { 'dev' }
 
     before do
-      allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(page: 1).and_return double(perform: double(parse: email_hashes))
+      allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with({}).and_return double(perform: double(headers: headers, parse: email_hashes))
       allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:show).and_return double(perform: double(status: 200, parse: email_hashes.first))
       allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(q: address).and_return double(perform: double(parse: []))
     end

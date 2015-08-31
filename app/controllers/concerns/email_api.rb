@@ -17,4 +17,22 @@ module EmailAPI
   def error_from_api(response)
     response.parse.has_key?('error') ? response.parse['error'] : response.body
   end
+
+  def prep_for_kaminari(api_response)
+    collection = api_response.parse
+
+    collection.define_singleton_method(:current_page) do
+      api_response.headers['x-page'].to_i
+    end
+
+    collection.define_singleton_method(:total_pages) do
+      api_response.headers['x-total-pages'].to_i
+    end
+
+    collection.define_singleton_method(:limit_value) do
+      api_response.headers['x-per-page'].to_i
+    end
+
+    collection
+  end
 end

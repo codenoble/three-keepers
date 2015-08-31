@@ -5,8 +5,8 @@ class EmailsController < ApplicationController
   def index
     args = params.slice(:page, :q).to_h.reject { |k,v| v.blank? }
 
-    # TODO: handle pagination
-    @raw_emails = GoogleSyncinator::APIClient::Emails.new.index(args).perform.parse
+    response = GoogleSyncinator::APIClient::Emails.new.index(args).perform
+    @raw_emails = prep_for_kaminari(response)
     @emails = EmailPresenter.map(@raw_emails)
   end
 

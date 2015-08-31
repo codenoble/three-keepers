@@ -12,3 +12,5 @@ table.table.table-striped
     th State
   - @emails.each do |email|
     = render 'email', email: email
+
+= paginate(@raw_emails)
