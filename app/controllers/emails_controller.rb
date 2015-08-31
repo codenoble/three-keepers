@@ -1,12 +1,12 @@
 class EmailsController < ApplicationController
+  include SearchEmail
   include EmailAPI
 
   def index
-    page = params[:page] || 1
+    args = params.slice(:page, :q).to_h.reject { |k,v| v.blank? }
 
-    # TODO: handle searching
     # TODO: handle pagination
-    @raw_emails = GoogleSyncinator::APIClient::Emails.new.index(page: page).perform.parse
+    @raw_emails = GoogleSyncinator::APIClient::Emails.new.index(args).perform.parse
     @emails = EmailPresenter.map(@raw_emails)
   end
 

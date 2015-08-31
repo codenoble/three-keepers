@@ -1,4 +1,5 @@
 class DeprovisionSchedulesController < ApplicationController
+  include SearchEmail
   include LoadsEmail
   include EmailAPI
 

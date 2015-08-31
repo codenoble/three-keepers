@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # This is meant to be overridden by concerns that search other things
+  def search_route() :people end
+  helper_method :search_route
+
   def authenticate!
     if current_user.authenticated?
       render_error_page(403) unless current_user.authorized?

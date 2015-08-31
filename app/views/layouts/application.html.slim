@@ -13,9 +13,9 @@ html lang="en-us"
         #biolaSubHeader
           .overflow_wrapper
             .container
-              = form_tag people_path, method: :get, class: 'form-inline pull-right', id: 'search_form' do
+              = form_tag url_for(search_route), method: :get, class: 'form-inline pull-right', id: 'search_form' do
                 .input-group.pull-right
-                  input.form-control name="q" type="search" value=params[:q] autofocus="autofocus"
+                  input.form-control name="q" type="search" value=params[:q] autofocus="autofocus" placeholder="Search #{search_route}"
                   .input-group-btn
                     button.btn.btn-primary#search_button type="submit"
                       = fa_icon 'search'

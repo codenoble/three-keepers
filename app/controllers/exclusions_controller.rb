@@ -1,5 +1,6 @@
 class ExclusionsController < ApplicationController
   include LoadsEmail
+  include SearchEmail
   include EmailAPI
 
   def new
