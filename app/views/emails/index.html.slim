@@ -1,16 +1,19 @@
-p.text-right
-  = link_to new_email_path, class: 'btn btn-success' do
-    = fa_icon 'plus', text: 'New Email'
+- if params[:q] && @emails.empty?
+  .alert.alert-info = fa_icon('info-circle', text: %{No results found for "#{params[:q]}"})
+- else
+  p.text-right
+    = link_to new_email_path, class: 'btn btn-success' do
+      = fa_icon 'plus', text: 'New Email'
 
-table.table.table-striped
-  tr
-    th Address
-    th Owner
-    th Primary
-    th Schedule
-    th Exclusions
-    th State
-  - @emails.each do |email|
-    = render 'email', email: email
+  table.table.table-striped
+    tr
+      th Address
+      th Owner
+      th Primary
+      th Schedule
+      th Exclusions
+      th State
+    - @emails.each do |email|
+      = render 'email', email: email
 
-.pagination = paginate(@raw_emails)
+  .pagination = paginate(@raw_emails)
