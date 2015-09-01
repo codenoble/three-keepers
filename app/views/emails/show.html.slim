@@ -41,9 +41,9 @@ h2 Deprovision Schedules
           - else
             = sched.completed_at.try(:to_formatted_s, :long)
         td
-          =' link_to email_deprovision_schedule_path(@email.id, sched.id, canceled: true), class: "btn btn-warning btn-xs #{sched.canceled? ? 'disabled' : ''}", method: :put, data: {confirm: 'Are you sure?'} do
+          =' link_to email_deprovision_schedule_path(@email.id, sched.id, canceled: true), class: "btn btn-warning btn-xs #{sched.completed_at || sched.canceled? ? 'disabled' : ''}", method: :put, data: {confirm: 'Are you sure?'} do
             = fa_icon 'ban', text: 'Cancel'
-          = link_to email_deprovision_schedule_path(@email.id, sched.id), class: 'btn btn-danger btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
+          = link_to email_deprovision_schedule_path(@email.id, sched.id), class: "btn btn-danger btn-xs #{sched.completed_at ? 'disabled' : ''}", method: :delete, data: {confirm: 'Are you sure?'} do
             = fa_icon 'trash', text: 'Delete'
 
 - if @email.primary?
