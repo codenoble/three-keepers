@@ -109,6 +109,9 @@
 
         hr
 
+        .pull-right
+          = link_to emails_path(q: @person.uuid) do
+            = fa_icon 'history', text: 'Full email history'
         h3 Emails
         table.table.table-striped
           tr
