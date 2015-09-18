@@ -14,8 +14,11 @@ gem 'rack-cas'
 gem 'rack-ssl'
 gem 'rails_config'
 gem 'sass-rails', '~> 4.0.4'
+gem 'sidekiq'
+gem 'sidetiq'
+gem 'sinatra', require: false
 gem 'therubyracer', platforms: :ruby
-gem 'trogdir_models', path: "~/gems/trogdir-models"
+gem 'trogdir_models'
 gem 'turnout'
 gem 'uglifier', '>= 1.3.0'
 

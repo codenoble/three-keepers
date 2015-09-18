@@ -1,0 +1,2 @@
+redis:
+  url: "redis://redis1.prod.biola.edu:6379/0"
