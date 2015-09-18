@@ -1,4 +1,9 @@
+require 'sidekiq/web'
+require 'sidetiq/web'
 Rails.application.routes.draw do
+
+  mount Sidekiq::Web, at: '/sidekiq'
+
   resources :people, only: [:index, :show]
   resources :syncinators, only: [:index, :show]
   resources :changesets, only: :show do

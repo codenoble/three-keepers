@@ -1,7 +1,9 @@
 class SyncinatorsController < ApplicationController
   def index
     syncinators = Syncinator.all.asc(:name)
-    @syncinators = SyncinatorPresenter.map(syncinators)
+    @active_queued_syncinators = SyncinatorPresenter.map(syncinators.where(active: true, queue_changes: true))
+    @active_syncinators = SyncinatorPresenter.map(syncinators.where(active: true, queue_changes: false))
+    @disabled_syncinators = SyncinatorPresenter.map(syncinators.where(active: false))
   end
 
   def show
