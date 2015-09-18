@@ -37,7 +37,7 @@ table.table.table-striped
     th Active
   - @disabled_syncinators.each do |syncinator|
     tr.text-muted.active
-      td.text_muted = link_to syncinator.name, syncinator
+      td.text-muted = link_to syncinator.name, syncinator
       td
         span.text-muted N/A
       td = fa_check(syncinator.active?)
