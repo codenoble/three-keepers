@@ -44,11 +44,11 @@ GEM
       slim (~> 2.0)
     biola_logs (0.1.0)
       lograge (~> 0.3)
-    blazing (0.4.1)
+    blazing (0.4.2)
       activesupport
       grit
       i18n
-      logging
+      logging (~> 1.8)
       thor
     bootstrap-sass (3.2.0.0)
       sass (~> 3.2)
@@ -149,6 +149,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    puma (2.13.4)
     rack (1.5.2)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -283,6 +284,7 @@ DEPENDENCIES
   newrelic_rpm
   pinglish
   pry
+  puma
   rack-cas
   rack-ssl
   rails (= 4.1.7.1)
