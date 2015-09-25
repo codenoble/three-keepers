@@ -1,6 +1,6 @@
-target :'ruby2.staging', 'johnd0@ruby2.staging.biola.edu:/srv/rack/threekeepers', rails_env: 'staging'
-target :'ruby5a.prod',   'johnd0@ruby5a.prod.biola.edu:/srv/rack/threekeepers',   rails_env: 'production'
-target :'ruby5b.prod',   'johnd0@ruby5b.prod.biola.edu:/srv/rack/threekeepers',   rails_env: 'production'
+target :'ruby2.staging', 'johnd0@ruby2.staging.biola.edu:/srv/rack/three-keepers', rails_env: 'staging'
+target :'ruby5a.prod',   'johnd0@ruby5a.prod.biola.edu:/srv/rack/three-keepers',   rails_env: 'production'
+target :'ruby5b.prod',   'johnd0@ruby5b.prod.biola.edu:/srv/rack/three-keepers',   rails_env: 'production'
 
 env_scripts '/etc/profile'
 
