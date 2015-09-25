@@ -21,3 +21,4 @@
 /config/settings.local.yml
 dump.rdb
 log/*.log
+.gitconfig
