@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.7.1'
 
+gem 'blazing'
 gem 'biola_deploy'
 gem 'biola_frontend_toolkit', '>= 0.3.1'
 gem 'coffee-rails', '~> 4.0.0'
