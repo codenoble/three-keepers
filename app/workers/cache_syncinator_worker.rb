@@ -2,7 +2,7 @@ class CacheSyncinatorWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-  recurrence { hourly.minute_of_hour(0, 5, 30, 45) }
+  recurrence { hourly.minute_of_hour(0, 5, 15, 30, 45) }
 
   def perform
     Syncinator.all.each do |syncinator|
