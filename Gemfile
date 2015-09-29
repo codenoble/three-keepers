@@ -16,7 +16,7 @@ gem 'rack-ssl'
 gem 'rails_config'
 gem 'sass-rails', '~> 4.0.4'
 gem 'sidekiq'
-gem 'sidetiq'
+gem 'sidekiq-cron'
 gem 'sinatra', require: false
 gem 'therubyracer', platforms: :ruby
 gem 'trogdir_models'

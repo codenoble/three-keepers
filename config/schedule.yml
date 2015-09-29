@@ -1,0 +1,9 @@
+cache_syncinator_worker:
+  cron: "5 * * * *"
+  class: "CacheSyncinatorWorker"
+  queue: default
+
+cache_syncinator_unfinished_worker:
+  cron: "5 * * * *"
+  class: "CacheSyncinatorUnfinishedWorker"
+  queue: default
