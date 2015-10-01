@@ -1,19 +1,17 @@
 - if params[:q] && @emails.empty?
   .alert.alert-info = fa_icon('info-circle', text: %{No results found for "#{params[:q]}"})
 - else
-  p.text-right
-    = link_to new_email_path, class: 'btn btn-success' do
-      = fa_icon 'plus', text: 'New Email'
+  .btn-group.pull-right
+    = link_to new_person_email_path, class: 'btn btn-success' do
+      = fa_icon 'plus', text: 'New Person Email'
+    button.btn.btn-success.dropdown-toggle type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+      span.caret
+    ul.dropdown-menu
+      li = link_to 'New Alias Email', new_alias_email_path
+  .clearfix
 
-  table.table.table-striped
-    tr
-      th Address
-      th Owner
-      th Primary
-      th Schedule
-      th Exclusions
-      th State
-    - @emails.each do |email|
-      = render 'email', email: email
+  .media
+    ul.media-list.emails
+      = render @emails
 
   .pagination = paginate(@raw_emails)

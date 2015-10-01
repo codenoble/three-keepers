@@ -8,23 +8,18 @@ class ExclusionsController < ApplicationController
   end
 
   def create
-    if @email.primary?
-      @form = ExclusionForm.new(exclusions_model)
-      args = params[:exclusion].merge(email_id: @email.id, creator_uuid: current_user.uuid)
+    @form = ExclusionForm.new(exclusions_model)
+    args = params[:exclusion].merge(email_id: @email.id, creator_uuid: current_user.uuid)
 
-      if @form.validate(args)
-        @form.save do |hash|
-          response = GoogleSyncinator::APIClient::Exclusions.new.create(args).perform
+    if @form.validate(args)
+      @form.save do |hash|
+        response = GoogleSyncinator::APIClient::Exclusions.new.create(args).perform
 
-          handle_response(response)
-        end
-      else
-        flash.now[:alert] = @form.errors.full_messages.join('. ') + '.'
-        render :new
+        handle_response(response)
       end
     else
-      flash[:alert] = 'Exclusions can only be created on primary emails'
-      redirect_to email_path(@email.id)
+      flash.now[:alert] = @form.errors.full_messages.join('. ') + '.'
+      render :new
     end
   end
 
@@ -37,7 +32,7 @@ class ExclusionsController < ApplicationController
       flash[:alert] = "Error from API: #{error_from_api(response)}"
     end
 
-    redirect_to email_path(@email.id)
+    redirect_to person_email_path(@email.id)
   end
 
   private

@@ -1,0 +1,15 @@
+h1 New Person Email
+
+= form_for @form do |f|
+  .row
+    .col-xs-4
+      .form-group
+        = f.label 'person_email_uuid_search', 'Owner'
+        = f.text_field :uuid, id: 'person_email_uuid_search', class: 'search-field form-control', data: {lookup_url: search_people_path}
+        = f.hidden_field :uuid, class: 'hidden-field'
+
+      .form-group
+        = f.label :address, 'Email Address'
+        = f.text_field :address, class: 'form-control'
+
+      = f.submit 'Create Person Email', class: 'btn btn-success'

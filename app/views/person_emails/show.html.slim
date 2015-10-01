@@ -3,18 +3,14 @@ h1 = @email.address
 dl.dl-horizontal
   dt Owner
   dd = link_to @email.person, @email.person
-  dt Primary
-  dd
-    i.fa class=@email.primary_icon_class
   dt Current State
   dd class=@email.css_classes
     i.fa> class=@email.icon_class
     = @email.state
 
-- if @email.primary?
-  .pull-right
-    = link_to new_email_deprovision_schedule_path(@email.id), class: 'btn btn-success' do
-      = fa_icon 'plus', text: 'New Deprovision Schedule'
+.pull-right
+  = link_to new_person_email_deprovision_schedule_path(@email.id), class: 'btn btn-success' do
+    = fa_icon 'plus', text: 'New Deprovision Schedule'
 h2 Deprovision Schedules
 - if @email.deprovision_schedules.empty?
   .alert.alert-info
@@ -41,15 +37,14 @@ h2 Deprovision Schedules
           - else
             = sched.completed_at.try(:to_formatted_s, :long)
         td
-          =' link_to email_deprovision_schedule_path(@email.id, sched.id, canceled: true), class: "btn btn-warning btn-xs #{sched.completed_at || sched.canceled? ? 'disabled' : ''}", method: :put, data: {confirm: 'Are you sure?'} do
+          =' link_to person_email_deprovision_schedule_path(@email.id, sched.id, canceled: true), class: "btn btn-warning btn-xs #{sched.completed_at || sched.canceled? ? 'disabled' : ''}", method: :put, data: {confirm: 'Are you sure?'} do
             = fa_icon 'ban', text: 'Cancel'
-          = link_to email_deprovision_schedule_path(@email.id, sched.id), class: "btn btn-danger btn-xs #{sched.completed_at ? 'disabled' : ''}", method: :delete, data: {confirm: 'Are you sure?'} do
+          = link_to person_email_deprovision_schedule_path(@email.id, sched.id), class: "btn btn-danger btn-xs #{sched.completed_at ? 'disabled' : ''}", method: :delete, data: {confirm: 'Are you sure?'} do
             = fa_icon 'trash', text: 'Delete'
 
-- if @email.primary?
-  .pull-right
-    = link_to new_email_exclusion_path(@email.id), class: 'btn btn-success' do
-      = fa_icon 'plus', text: 'New Exclusion'
+.pull-right
+  = link_to new_person_email_exclusion_path(@email.id), class: 'btn btn-success' do
+    = fa_icon 'plus', text: 'New Exclusion'
 h2 Exclusions
 - if @email.exclusions.empty?
   .alert.alert-info
@@ -69,7 +64,7 @@ h2 Exclusions
         td = excl.ends_at.try(:to_formatted_s, :long) || '&infin;'.html_safe
         td = link_to excl.creator, excl.creator
         td = excl.reason
-        td = link_to email_exclusion_path(@email.id, excl.id), class: 'btn btn-danger btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
+        td = link_to person_email_exclusion_path(@email.id, excl.id), class: 'btn btn-danger btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
           = fa_icon 'trash', text: 'Delete'
 
 h2 Other Email Owners
@@ -78,13 +73,6 @@ h2 Other Email Owners
     i.fa.fa-info-circle>
     | No other email owners were found
 - else
-  table.table.table-striped
-    tr
-      th Address
-      th Owner
-      th Primary
-      th Schedule
-      th Exclusions
-      th State
-    - @other_emails.each do |email|
-      = render 'email', email: email
+  .media
+    ul.media-list.emails
+      = render @other_emails

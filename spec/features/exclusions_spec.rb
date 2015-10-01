@@ -16,7 +16,7 @@ describe 'exclusions' do
     let(:username) { 'nobody' }
 
     it 'should render a forbidden page' do
-      visit new_email_exclusion_path(email_hash['id'])
+      visit new_person_email_exclusion_path(email_hash['id'])
       expect(page).to have_content 'Access Denied'
     end
   end
@@ -27,6 +27,7 @@ describe 'exclusions' do
     before do
       allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with({}).and_return double(perform: double(headers: headers, parse: email_hashes))
       allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:show).and_return double(perform: double(status: 200, parse: email_hashes.first))
+      allow_any_instance_of(GoogleSyncinator::APIClient::PersonEmails).to receive(:show).and_return double(perform: double(status: 200, parse: email_hashes.first))
       allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(q: address).and_return double(perform: double(parse: []))
     end
 

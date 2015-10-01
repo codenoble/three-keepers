@@ -1,0 +1,15 @@
+li.media.well.well-sm
+  .media-body
+    h3.media-heading
+      = link_to alias_email_path(alias_email.id), class: 'text-info' do
+        = fa_icon 'mail-forward', text: alias_email.address
+
+    .text-muted style="padding-left: 32px;"
+      .person
+        strong.text-muted> Alias for:
+        = link_to alias_email.person_email.address, person_email_path(alias_email.person_email.id)
+
+      .state class=alias_email.css_classes
+        strong.text-muted> State:
+        i.fa> class=alias_email.icon_class
+        = alias_email.state

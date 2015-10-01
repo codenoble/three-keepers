@@ -8,23 +8,18 @@ class DeprovisionSchedulesController < ApplicationController
   end
 
   def create
-    if @email.primary?
-      @form = DeprovisionScheduleForm.new(deprovision_schedule_model)
-      args = params[:deprovision_schedule].slice(:action, :scheduled_for, :reason).merge(email_id: @email.id)
+    @form = DeprovisionScheduleForm.new(deprovision_schedule_model)
+    args = params[:deprovision_schedule].slice(:action, :scheduled_for, :reason).merge(email_id: @email.id)
 
-      if @form.validate(args)
-        @form.save do |hash|
-          response = GoogleSyncinator::APIClient::DeprovisionSchedules.new.create(args).perform
+    if @form.validate(args)
+      @form.save do |hash|
+        response = GoogleSyncinator::APIClient::DeprovisionSchedules.new.create(args).perform
 
-          handle_response(response)
-        end
-      else
-        flash.now[:alert] = @form.errors.full_messages.join('. ') + '.'
-        render :new
+        handle_response(response)
       end
     else
-      flash[:alert] = 'Deprovision schedules can only be created on primary emails'
-      redirect_to email_path(@email.id)
+      flash.now[:alert] = @form.errors.full_messages.join('. ') + '.'
+      render :new
     end
   end
 
@@ -37,7 +32,7 @@ class DeprovisionSchedulesController < ApplicationController
       flash[:alert] = "Error from API: #{error_from_api(response)}"
     end
 
-    redirect_to email_path(@email.id)
+    redirect_to person_email_path(@email.id)
   end
 
   def destroy
@@ -49,7 +44,7 @@ class DeprovisionSchedulesController < ApplicationController
       flash[:alert] = "Error from API: #{error_from_api(response)}"
     end
 
-    redirect_to email_path(@email.id)
+    redirect_to person_email_path(@email.id)
   end
 
   private

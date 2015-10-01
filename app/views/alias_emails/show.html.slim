@@ -1,0 +1,19 @@
+h1 = @email.address
+
+dl.dl-horizontal
+  dt Alias of
+  dd = link_to @email.person_email, person_email_path(@email.person_email.id)
+  dt Current State
+  dd class=@email.css_classes
+    i.fa> class=@email.icon_class
+    = @email.state
+
+h2 Other Email Owners
+- if @other_emails.empty?
+  .alert.alert-info
+    i.fa.fa-info-circle>
+    | No other email owners were found
+- else
+  .media
+    ul.media-list.emails
+      = render @other_emails

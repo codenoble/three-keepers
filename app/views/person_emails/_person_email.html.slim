@@ -1,0 +1,28 @@
+li.media.well.well-sm
+  .media-body
+    h3.media-heading
+      = link_to person_email_path(person_email.id), class: 'text-info' do
+        = fa_icon 'envelope-o', text: person_email.address
+
+    .text-muted style="padding-left: 32px;"
+      .person
+        strong.text-muted> Person:
+        = link_to person_email.person, person_email.person
+
+      - if person_email.deprovision_schedules.any?
+        .deprovision_schedules
+          strong.text-muted> Schedules:
+          - person_email.deprovision_schedules.each do |sched|
+            i.fa> class="#{sched.css_classes} #{sched.icon_class}" data-toggle="popover" data-trigger="hover" data-placement="top" title=sched.action.titleize data-html="true" data-content="<strong>Reason:</strong> #{sched.reason}<br><strong>Scheduled for:</strong> #{sched.scheduled_for.to_formatted_s(:long)}<br><strong>Completed at:</strong> #{sched.completed_at.try(:to_formatted_s, :long)}<br><strong>Canceled?</strong>: #{sched.canceled? ? 'Yes' : 'No'}"
+            - unless sched == person_email.deprovision_schedules.last
+              i.fa.fa-caret-right.text-muted<>
+
+      - if person_email.exclusions.any?
+        .exclusions
+          strong.text-muted> Exclusions:
+          = person_email.exclusion_summary
+
+      .state class=person_email.css_classes
+        strong.text-muted> State:
+        i.fa> class=person_email.icon_class
+        = person_email.state

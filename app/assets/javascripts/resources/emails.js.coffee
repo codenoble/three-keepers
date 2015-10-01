@@ -1,10 +1,11 @@
-label_field = $('#email_uuid_search')
-value_field = $('#email_uuid')
+label_field = $('.search-field')
+value_field = $('.hidden-field')
 
-label_field.autocomplete
-  source: label_field.data('lookup-url'),
-  select: (e, ui) ->
-    e.preventDefault()
-    value_field.val ui.item.value
+if label_field.length == 1 && value_field.length == 1
+  label_field.autocomplete
+    source: label_field.data('lookup-url'),
+    select: (e, ui) ->
+      e.preventDefault()
+      value_field.val ui.item.value
 
-    $(this).val ui.item.label
+      $(this).val ui.item.label

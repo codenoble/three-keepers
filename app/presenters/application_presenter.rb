@@ -17,6 +17,12 @@ class ApplicationPresenter
     model.to_param
   end
 
+  # Used by Rails to find a partial path for an ActiveModel instance
+  def to_partial_path
+    name = self.class.to_s.demodulize.gsub(/Presenter\Z/, '').underscore.downcase
+    "#{name.pluralize}/#{name}"
+  end
+
   def self.as_sentence(*methods)
     methods.each do |meth|
       define_method "#{meth}?" do

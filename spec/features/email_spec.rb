@@ -47,7 +47,7 @@ describe 'emails' do
 
     describe 'emails#show' do
       before { allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with({}).and_return double(perform: double(headers: headers, parse: email_hashes)) }
-      before { expect_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:show).and_return double(perform: double(status: 200, parse: email_hashes.first)) }
+      before { expect_any_instance_of(GoogleSyncinator::APIClient::PersonEmails).to receive(:show).and_return double(perform: double(status: 200, parse: email_hashes.first)) }
       before { allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(q: address).and_return double(perform: double(parse: [])) }
 
       it 'should show an email' do
@@ -70,21 +70,20 @@ describe 'emails' do
     describe 'emails#new' do
       before do
         allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with({}).and_return double(perform: double(headers: headers, parse: email_hashes))
-        expect_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:create).with('uuid' => person.uuid, 'address' => address, 'primary' => '1').and_return double(perform: double(success?: true, parse: email_hashes.first))
-        expect_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:show).and_return double(perform: double(status: 200, parse: email_hashes.first))
+        expect_any_instance_of(GoogleSyncinator::APIClient::PersonEmails).to receive(:create).with('uuid' => person.uuid, 'address' => address).and_return double(perform: double(success?: true, parse: email_hashes.first))
+        expect_any_instance_of(GoogleSyncinator::APIClient::PersonEmails).to receive(:show).and_return double(perform: double(status: 200, parse: email_hashes.first))
         allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(q: address).and_return double(perform: double(parse: []))
       end
 
       it 'creates a new email' do
         visit root_path
         click_link 'Emails'
-        click_link 'New Email'
+        click_link 'New Person Email'
         # NOTE: fill_in doesn't work for hidden fields, this is the work around.
         #   Ideally, we'd be using a JavaScript engine here, but it seems like overkill for just this.
-        find(:xpath, "//input[@id='email_uuid']").set person.uuid
-        fill_in 'email_address', with: address
-        check 'Primary?'
-        click_button 'Create Email'
+        find(:xpath, "//input[@id='person_email_uuid']").set person.uuid
+        fill_in 'person_email_address', with: address
+        click_button 'Create Person Email'
         expect(page).to have_content address
         expect(page).to have_content(/Owner.*#{person.first_name}\ #{person.last_name}/)
       end

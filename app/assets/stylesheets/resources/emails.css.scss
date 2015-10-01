@@ -1,0 +1,13 @@
+body.emails.index {
+  ul.emails.media-list li {
+    width: 380px;
+    height: 130px;
+    margin-top: 20px;
+    margin-right: 40px;
+    float: left;
+
+    h3 {
+      white-space: nowrap;
+    }
+  }
+}
