@@ -7,8 +7,8 @@ describe 'exclusions' do
   let(:exclusion_id) { BSON::ObjectId.new.to_s }
   let(:reason) { 'Testing with Capybara' }
   let(:person) { create(:person, first_name: 'Frank', last_name: 'Bennedetto', partial_ssn: '0486') }
-  let(:email_hash) { build(:email_hash, uuid: person.uuid, address: address, exclusions: [{'id' => exclusion_id, 'starts_at' => Time.now.to_s, 'reason' => reason}]) }
-  let(:email_hashes) { [email_hash, build(:email_hash)] }
+  let(:email_hash) { build(:person_email_hash, uuid: person.uuid, address: address, exclusions: [{'id' => exclusion_id, 'starts_at' => Time.now.to_s, 'reason' => reason}]) }
+  let(:email_hashes) { [email_hash, build(:person_email_hash)] }
   let(:headers) { {'x-page' => 1, 'x-total-pages' => 1, 'x-limit-value' => 2} }
   before { login_as username }
 

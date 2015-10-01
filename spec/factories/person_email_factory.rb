@@ -1,10 +1,9 @@
 FactoryGirl.define do
-  factory :email_hash, class: Hash do
+  factory :person_email_hash, class: Hash do
     _type { 'PersonEmail' }
     id { Faker::Number.number(10) }
     sequence(:uuid) { |n| create(:person).uuid }
     address { Faker::Internet.email }
-    primary { true }
     state { :active }
     deprovision_schedules { [] }
     exclusions { [] }
