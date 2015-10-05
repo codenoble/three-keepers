@@ -2,3 +2,5 @@ google_syncinator:
   scheme: https
   host: api.staging.biola.edu
   script_name: google-syncinator
+redis:
+  url: "redis://redis1.staging.biola.edu:6379/0"

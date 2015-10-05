@@ -1,2 +1,4 @@
 app:
   host: three-keepers.dev
+redis:
+  url: "redis://localhost:6379/0"

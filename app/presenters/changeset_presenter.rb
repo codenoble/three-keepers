@@ -29,7 +29,7 @@ class ChangesetPresenter < ApplicationPresenter
 
   def status
     statuses = model.change_syncs.map do |change_sync|
-      sync_log_status(change_sync.sync_logs.last)
+      sync_log_status(change_sync.sync_logs.order_by(started_at: 'desc').first)
     end
 
     statuses.sort_by(&:weight).first
@@ -37,7 +37,7 @@ class ChangesetPresenter < ApplicationPresenter
 
   def status_for(syncinator)
     change_sync = model.change_syncs.find_by(syncinator_id: syncinator.id)
-    sync_log_status(change_sync.sync_logs.last)
+    sync_log_status(change_sync.sync_logs.order_by(started_at: 'desc').first)
   end
 
   private

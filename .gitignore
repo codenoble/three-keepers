@@ -19,3 +19,6 @@
 /config/mongoid.yml
 /config/newrelic.yml
 /config/settings.local.yml
+dump.rdb
+log/*.log
+.gitconfig

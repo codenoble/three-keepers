@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.1.7.1'
 
+gem 'blazing'
 gem 'biola_deploy'
 gem 'biola_frontend_toolkit', '>= 0.3.1'
-gem 'blazing'
 gem 'chronic_ping'
 gem 'coffee-rails', '~> 4.0.0'
 # FIXME: point at the real gem once it exists
@@ -14,11 +14,15 @@ gem 'jquery-ui-rails'
 gem 'kaminari-bootstrap'
 gem 'newrelic_rpm'
 gem 'pinglish'
+gem 'puma'
 gem 'rack-cas'
 gem 'rack-ssl'
 gem 'rails_config'
 gem 'reform'
 gem 'sass-rails', '~> 4.0.4'
+gem 'sidekiq'
+gem 'sidekiq-cron'
+gem 'sinatra', require: false
 gem 'therubyracer', platforms: :ruby
 gem 'trogdir_models'
 gem 'turnout'

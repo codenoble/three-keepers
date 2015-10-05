@@ -36,7 +36,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    api-auth (1.3.1)
+    api-auth (1.3.2)
     arel (5.0.1.20140414130214)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
@@ -56,15 +56,15 @@ GEM
       slim (~> 2.0)
     biola_logs (0.1.0)
       lograge (~> 0.3)
-    blazing (0.4.1)
+    blazing (0.4.2)
       activesupport
       grit
       i18n
-      logging
+      logging (~> 1.8)
       thor
     bootstrap-sass (3.2.0.0)
       sass (~> 3.2)
-    bson (3.2.1)
+    bson (3.2.4)
     builder (3.2.2)
     capybara (2.4.1)
       mime-types (>= 1.16)
@@ -72,6 +72,47 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    celluloid (0.17.1.2)
+      bundler
+      celluloid-essentials
+      celluloid-extras
+      celluloid-fsm
+      celluloid-pool
+      celluloid-supervision
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (>= 4.1.1)
+    celluloid-essentials (0.20.2.1)
+      bundler
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (>= 4.1.1)
+    celluloid-extras (0.20.1)
+      bundler
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (>= 4.1.1)
+    celluloid-fsm (0.20.1)
+      bundler
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (>= 4.1.1)
+    celluloid-pool (0.20.1)
+      bundler
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (>= 4.1.1)
+    celluloid-supervision (0.20.1.1)
+      bundler
+      dotenv
+      nenv
+      rspec-logsplit (>= 0.1.2)
+      timers (>= 4.1.1)
     chronic (0.10.2)
     chronic_ping (0.4.0)
       chronic
@@ -95,6 +136,7 @@ GEM
     disposable (0.1.9)
       representable (>= 2.2.3, <= 2.3.0)
       uber
+    dotenv (2.0.2)
     easy_diff (0.0.6)
     email_validator (1.6.0)
       activemodel
@@ -116,6 +158,7 @@ GEM
       diff-lcs (>= 1.1.2)
       mime-types (>= 1.15)
     hike (1.2.3)
+    hitimes (1.2.3)
     i18n (0.7.0)
     ice_nine (0.11.1)
     jquery-rails (3.1.3)
@@ -158,12 +201,13 @@ GEM
       mongoid (>= 3.0)
     mongoid_userstamp (0.4.0)
       mongoid (>= 3.0.4)
-    moped (2.0.6)
+    moped (2.0.7)
       bson (~> 3.0)
       connection_pool (~> 2.0)
       optionable (~> 0.2.0)
     multi_json (1.11.2)
     multipart-post (2.0.0)
+    nenv (0.2.0)
     newrelic_rpm (3.9.5.251)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
@@ -176,6 +220,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    puma (2.13.4)
     rack (1.5.5)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -183,6 +228,8 @@ GEM
       addressable (~> 2.3)
       nokogiri (~> 1.5)
       rack (~> 1.3)
+    rack-protection (1.5.3)
+      rack
     rack-ssl (1.4.1)
       rack
     rack-test (0.6.3)
@@ -205,6 +252,9 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    redis (3.2.1)
+    redis-namespace (1.5.2)
+      redis (~> 3.0, >= 3.0.4)
     ref (1.0.5)
     reform (2.0.3)
       disposable (~> 0.1.9)
@@ -217,6 +267,7 @@ GEM
     rspec-expectations (3.0.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.0.0)
+    rspec-logsplit (0.1.3)
     rspec-mocks (3.0.3)
       rspec-support (~> 3.0.0)
     rspec-rails (3.0.2)
@@ -228,6 +279,7 @@ GEM
       rspec-mocks (~> 3.0.0)
       rspec-support (~> 3.0.0)
     rspec-support (3.0.3)
+    rufus-scheduler (3.1.5)
     sass (3.2.19)
     sass-rails (4.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -236,7 +288,20 @@ GEM
       sprockets-rails (~> 2.0)
     sentry-raven (0.13.3)
       faraday (>= 0.7.6)
+    sidekiq (3.5.0)
+      celluloid (~> 0.17.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      json (~> 1.0)
+      redis (~> 3.2, >= 3.2.1)
+      redis-namespace (~> 1.5, >= 1.5.2)
+    sidekiq-cron (0.3.1)
+      rufus-scheduler (>= 2.0.24)
+      sidekiq (>= 2.17.3)
     simple_oauth (0.3.1)
+    sinatra (1.4.6)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
     slim (2.0.3)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -258,7 +323,9 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
-    trogdir_models (0.14.0)
+    timers (4.1.1)
+      hitimes
+    trogdir_models (0.15.0)
       api-auth (~> 1.0)
       email_validator (~> 1.4)
       mongoid (~> 4.0)
@@ -311,6 +378,7 @@ DEPENDENCIES
   newrelic_rpm
   pinglish
   pry
+  puma
   rack-cas
   rack-ssl
   rails (= 4.1.7.1)
@@ -319,6 +387,9 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 4.0.4)
   sentry-raven
+  sidekiq
+  sidekiq-cron
+  sinatra
   spring
   therubyracer
   trogdir_models

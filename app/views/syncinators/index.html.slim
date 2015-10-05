@@ -1,19 +1,43 @@
+h3 Active and Queued
 table.table.table-striped
   tr
     th Name
     th Queue Size
     th Active
-  - @syncinators.each do |syncinator|
-    tr class=('text-muted active' if syncinator.inactive?)
-      td = link_to syncinator.name, syncinator, class: ('text-muted' if syncinator.inactive?)
+  - @active_queued_syncinators.each do |syncinator|
+    tr
+      td = link_to syncinator.name, syncinator
       td
         / TODO: helper for highlighting a high count
-        - if syncinator.queue_changes?
-          = syncinator.queue_count
-          - if (e_count = syncinator.errored_changesets.count) > 0
-            span.label.label-danger< #{e_count} errored
-          - if (p_count = syncinator.pending_changesets.count) > 0
-            span.label.label-warning< #{p_count} pending
-        - else
-          span.text-muted N/A
+        = syncinator.unfinished_count
+        - if (e_count = syncinator.errored_count) > 0
+          span.label.label-danger< #{e_count} errored
+        - if (p_count = syncinator.pending_count) > 0
+          span.label.label-warning< #{p_count} pending
+      td = fa_check(syncinator.active?)
+
+h3 Active with no Queue
+table.table.table-striped
+  tr
+    th Name
+    th Queue Size
+    th Active
+  - @active_syncinators.each do |syncinator|
+    tr
+      td = link_to syncinator.name, syncinator
+      td
+        span.text-muted N/A
+      td = fa_check(syncinator.active?)
+
+h3 Disabled
+table.table.table-striped
+  tr
+    th Name
+    th Queue Size
+    th Active
+  - @disabled_syncinators.each do |syncinator|
+    tr.text-muted.active
+      td.text-muted = link_to syncinator.name, syncinator
+      td
+        span.text-muted N/A
       td = fa_check(syncinator.active?)

@@ -1,4 +1,8 @@
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
 Rails.application.routes.draw do
+  mount Sidekiq::Web, at: '/sidekiq'
+
   resources :people, only: [:index, :show] do
     get :search, on: :collection
   end
@@ -9,6 +13,7 @@ Rails.application.routes.draw do
     resources :exclusions, only: [:new, :create, :destroy]
   end
   resources :alias_emails, only: [:show, :new, :create]
+
   resources :syncinators, only: [:index, :show]
   resources :changesets, only: :show do
     resources :change_syncs, only: :update
