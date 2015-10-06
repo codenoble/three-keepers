@@ -3,7 +3,7 @@ class EmailsController < ApplicationController
   include EmailAPI
 
   def index
-    args = params.slice(:page, :q).to_h.reject { |k,v| v.blank? }
+    args = params.slice(:page, :q, :state, :pending).to_h.reject { |k,v| v.blank? }
 
     response = GoogleSyncinator::APIClient::Emails.new.index(args).perform
     @raw_emails = prep_for_kaminari(response)

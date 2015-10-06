@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/codenoble/google-syncinator-api-client.git
-  revision: c91678598952ce1a8fc18f5e2a73ddae54a23396
+  revision: 5d6c050fd6785841ed1ca12e7bf2ff5b1beb489d
   specs:
     google_syncinator_api_client (0.1.0)
       api-auth (~> 1.0)

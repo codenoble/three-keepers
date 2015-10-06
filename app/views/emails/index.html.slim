@@ -1,7 +1,20 @@
 - if params[:q] && @emails.empty?
   .alert.alert-info = fa_icon('info-circle', text: %{No results found for "#{params[:q]}"})
 - else
-  .btn-group.pull-right
+  .pull-right
+    .btn-group> role="group"
+      = menu_block(class: 'btn btn-default') do |menu|
+        = menu.add_item('All', default: true, match_params: {pending: nil}) { emails_path(params.except(:pending)) }
+        = menu.add_item('Pending Deprovision') { emails_path(params.merge(pending: '1')) }
+
+    .btn-group role="group"
+      = menu_block(class: 'btn btn-default') do |menu|
+        = menu.add_item('All', default: true, match_params: {state: nil}) { emails_path(params.except(:state)) }
+        = menu.add_item('Active') { emails_path(params.merge(state: 'active')) }
+        = menu.add_item('Suspended') { emails_path(params.merge(state: 'suspended')) }
+        = menu.add_item('Deleted') { emails_path(params.merge(state: 'deleted')) }
+
+  .btn-group.pull-left
     = link_to new_person_email_path, class: 'btn btn-success' do
       = fa_icon 'plus', text: 'New Person Email'
     button.btn.btn-success.dropdown-toggle type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"

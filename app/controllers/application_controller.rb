@@ -22,6 +22,8 @@ class ApplicationController < ActionController::Base
   # This is meant to be overridden by concerns that search other things
   def search_route() :people end
   helper_method :search_route
+  def search_params() [] end
+  helper_method :search_params
 
   def authenticate!
     if current_user.authenticated?
