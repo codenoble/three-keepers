@@ -24,9 +24,10 @@ html lang="en-us"
                       = fa_icon 'search'
 
               ul.nav-list.nav-main
-                li = nav_link 'People', :people_path
-                li = nav_link 'Emails', :emails_path
-                li = nav_link 'Syncinators', :syncinators_path
+                = menu_block() do |menu|
+                  li = menu.add_item('People', default: true) { people_path }
+                  li = menu.add_item('Emails', match_params: {controller: [:emails, :alias_emails, :person_emails, :deprovision_schedules, :exclusions]}) { emails_path }
+                  li = menu.add_item('Syncinators') { syncinators_path }
 
       .page.container-fluid
         - if flash[:notice]

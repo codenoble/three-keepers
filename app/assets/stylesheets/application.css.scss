@@ -25,13 +25,11 @@ html, body { min-height: 100%; }
     input[type=search] { min-width: 300px; }
   }
   .overflow_wrapper { padding: 0; }
+
   .nav-main { font-size: 1.35em; font-weight: bold; clear: left;  display: block; list-style: none; margin: 0; padding: 0; font-family: 'proxima-nova',Helvetica,Arial,sans-serif; white-space: nowrap; }
-  .nav-main li { display: inline-block; position: relative; margin-top: 0px; margin-left: 1.3em; padding: 15px 5px; }
-  .nav-main li:first-child { margin-left: 0; }
-  .nav-main li:last-child { margin-right: 1.3em }
-  .nav-main li a { color: #333; border: 0 solid #3E4A66; text-decoration: none; font-weight: 300; }
-  .nav-main li.active { border-bottom: 2px solid #CA4242; }
-  .nav-main li.active > a { border-bottom-width: 0; font-weight: 500 }
+  .nav-main li { display: inline-block; position: relative; margin: 0; padding: 0 15px; }
+  .nav-main li a { margin-top: 0px; margin-left: 1.3em; padding: 15px 5px; color: #333; border: 0 solid #3E4A66; text-decoration: none; font-weight: 300; }
+  .nav-main li a.active { display: inline-block; position: relative; border-bottom: 2px solid #CA4242; font-weight: 500 }
 }
 
 #body { padding-bottom: 40px;
