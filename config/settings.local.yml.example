@@ -2,3 +2,7 @@ secret_token:
 
 sentry:
   url: # Set me!
+
+  google_syncinator:
+    access_id:
+    secret_key:
