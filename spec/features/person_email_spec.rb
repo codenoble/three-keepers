@@ -64,5 +64,26 @@ describe 'person emails' do
         expect(page).to have_content(/Owner.*#{person.first_name}\ #{person.last_name}/)
       end
     end
+
+    describe 'person_email#edit' do
+      let(:new_address) { 'private.bennedetto@biola.edu' }
+
+      before do
+        allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with({}).and_return double(perform: double(headers: headers, parse: email_hashes))
+        allow_any_instance_of(GoogleSyncinator::APIClient::PersonEmails).to receive(:show).and_return double(perform: double(status: 200, parse: email_hashes.first))
+        allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(q: address).and_return double(perform: double(parse: []))
+        expect_any_instance_of(GoogleSyncinator::APIClient::PersonEmails).to receive(:update).with(id: email_hashes.first['id'], address: new_address).and_return double(perform: double(success?: true, parse: {'id' => 1234}))
+      end
+
+      it 'renames an email' do
+        visit root_path
+        click_link 'Emails'
+        click_link address
+        click_link 'Rename'
+        fill_in 'update_person_email_address', with: new_address
+        click_button 'Rename Person Email'
+        expect(page).to have_content address
+      end
+    end
   end
 end

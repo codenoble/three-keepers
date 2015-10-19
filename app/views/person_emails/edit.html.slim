@@ -1,0 +1,13 @@
+h1 Rename Person Email
+
+= form_for @form, url: person_email_path(params[:id]), method: :patch do |f|
+  .row
+    .col-xs-4
+      .form-group
+        = f.label :address, 'Email Address'
+        = f.text_field :address, class: 'form-control', value: @form.address
+
+  .row
+    .col-xs-12
+      p.text-info = fa_icon 'info-circle', text: 'Renaming an email will automatically create an alias for the old address'
+      =' f.submit 'Rename Person Email', class: 'btn btn-success'

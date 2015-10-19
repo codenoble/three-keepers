@@ -1,4 +1,7 @@
-h1 = @email.address
+h1
+  =' @email.address
+  small = link_to edit_person_email_path(@email.id), title: 'Rename', data: {toggle: 'tooltip', placement: 'right'} do
+    = fa_icon 'pencil'
 
 dl.dl-horizontal
   dt Owner

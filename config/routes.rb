@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
   resources :emails, only: :index
-  resources :person_emails, only: [:show, :new, :create] do
+  resources :person_emails, except: [:index, :destroy] do
     get :search, on: :collection
     resources :deprovision_schedules, only: [:new, :create, :update, :destroy]
     resources :exclusions, only: [:new, :create, :destroy]

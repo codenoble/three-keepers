@@ -6,12 +6,13 @@ module EmailAPI
   def handle_response(response, options = {})
     email_id_param = options[:email_id_param] || 'email_id'
     route = options[:route] || :person_email
+    failure_action = options[:failure_action] || :new
 
     if response.success?
       redirect_to send("#{route}_path", response.parse[email_id_param])
     else
       flash.now[:alert] = "Error from API: #{error_from_api(response)}"
-      render :new
+      render failure_action
     end
   end
 
