@@ -50,6 +50,19 @@ h1 New Department Email
         = f.label :title
         = f.text_field :title, class: 'form-control'
 
+      .form-group
+        = f.label :privacy do
+          ' Privacy
+          small.text-muted hide from Google's Global Address List
+        br
+        .btn-group data-toggle="buttons"
+          = f.label nil, class: "btn btn-primary #{'active' unless f.object.privacy == 'true'}" do
+            = f.radio_button :privacy, false
+            | Public
+          = f.label nil, class: "btn btn-primary #{'active' if f.object.privacy == 'true'}" do
+            = f.radio_button :privacy, true
+            | Private
+
   .row
     .col-xs-12
       = f.submit 'Create Department Email', class: 'btn btn-success'
