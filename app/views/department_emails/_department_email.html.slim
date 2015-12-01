@@ -1,0 +1,28 @@
+li.media.well.well-sm
+  .media-body
+    h3.media-heading
+      = link_to department_email_path(department_email.id), class: 'text-info' do
+        = fa_icon 'university', text: department_email.address
+
+    .text-muted style="padding-left: 32px;"
+      .person
+        strong.text-muted> People:
+        = department_email.people.map { |person| link_to person, person }.join(', ').html_safe
+
+      - if department_email.deprovision_schedules.any?
+        .deprovision_schedules
+          strong.text-muted> Schedules:
+          - department_email.deprovision_schedules.each do |sched|
+            i.fa> class="#{sched.css_classes} #{sched.icon_class}" data-toggle="popover" data-trigger="hover" data-placement="top" title=sched.action.titleize data-html="true" data-content="<strong>Reason:</strong> #{sched.reason}<br><strong>Scheduled for:</strong> #{sched.scheduled_for.to_formatted_s(:long)}<br><strong>Completed at:</strong> #{sched.completed_at.try(:to_formatted_s, :long)}<br><strong>Canceled?</strong>: #{sched.canceled? ? 'Yes' : 'No'}"
+            - unless sched == department_email.deprovision_schedules.last
+              i.fa.fa-caret-right.text-muted<>
+
+      - if department_email.exclusions.any?
+        .exclusions
+          strong.text-muted> Exclusions:
+          = department_email.exclusion_summary
+
+      .state class=department_email.css_classes
+        strong.text-muted> State:
+        i.fa> class=department_email.icon_class
+        = department_email.state

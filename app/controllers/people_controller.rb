@@ -13,12 +13,9 @@ class PeopleController < ApplicationController
 
   def search
     results = filter(params[:term]).map do |p|
-      label = "#{p.preferred_name || p.first_name} #{p.last_name}"
+      presenter = PersonPresenter.new(p)
 
-      netid = p.ids.where(type: :netid).first.try(:identifier)
-      label << " - #{netid}" if netid
-
-      {label: label, value: p.uuid}
+      {label: presenter.name_and_id, value: p.uuid}
     end
     render json: results.to_json, callback: params[:jsonCallback]
   end

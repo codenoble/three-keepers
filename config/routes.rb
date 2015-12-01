@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     resources :deprovision_schedules, only: [:new, :create, :update, :destroy]
     resources :exclusions, only: [:new, :create, :destroy]
   end
+  resources :department_emails, except: :index do
+    resources :deprovision_schedules, only: [:new, :create, :update, :destroy]
+    resources :exclusions, only: [:new, :create, :destroy]
+  end
   resources :alias_emails, only: [:show, :new, :create]
 
   resources :syncinators, only: [:index, :show]

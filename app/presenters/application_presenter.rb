@@ -14,7 +14,11 @@ class ApplicationPresenter
   end
 
   def to_param
-    model.to_param
+    if model.is_a? Hash
+      model['id']
+    else
+      model.to_param
+    end
   end
 
   # Used by Rails to find a partial path for an ActiveModel instance
@@ -52,7 +56,11 @@ class ApplicationPresenter
   end
 
   def self.model_name
-    model_class.model_name
+    if model_class.respond_to?(:model_name)
+      model_class.model_name
+    else
+      ActiveModel::Name.new(self, nil, name.gsub(/Presenter$/, ''))
+    end
   end
 
   def method_missing(meth, *args, &block)

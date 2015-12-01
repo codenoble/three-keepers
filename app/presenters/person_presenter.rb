@@ -12,6 +12,13 @@ class PersonPresenter < ApplicationPresenter
   end
   alias :to_s :name
 
+  def name_and_id
+    name = "#{preferred_name || first_name} #{last_name}"
+    netid = ids.where(type: :netid).first.try(:identifier)
+
+    [name, netid].reject(&:blank?).join(' - ')
+  end
+
   def disabled?
     model.enabled == false
   end

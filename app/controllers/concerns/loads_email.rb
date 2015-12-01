@@ -1,7 +1,7 @@
 module LoadsEmail
   extend ActiveSupport::Concern
 
-  PARENT_ROUTES = [:person_email, :alias_email]
+  PARENT_ROUTES = [:person_email, :department_email, :alias_email]
 
   included do
     before_action :load_email

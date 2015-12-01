@@ -15,7 +15,7 @@ class ExclusionsController < ApplicationController
       @form.save do |hash|
         response = GoogleSyncinator::APIClient::Exclusions.new.create(args).perform
 
-        handle_response(response)
+        handle_response(response, route: @email.class.model_name.singular_route_key)
       end
     else
       flash.now[:alert] = @form.errors.full_messages.join('. ') + '.'
@@ -32,7 +32,7 @@ class ExclusionsController < ApplicationController
       flash[:alert] = "Error from API: #{error_from_api(response)}"
     end
 
-    redirect_to person_email_path(@email.id)
+    redirect_to @email
   end
 
   private

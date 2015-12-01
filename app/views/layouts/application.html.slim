@@ -26,7 +26,7 @@ html lang="en-us"
               ul.nav-list.nav-main
                 = menu_block() do |menu|
                   li = menu.add_item('People', default: true) { people_path }
-                  li = menu.add_item('Emails', match_params: {controller: [:emails, :alias_emails, :person_emails, :deprovision_schedules, :exclusions]}) { emails_path }
+                  li = menu.add_item('Emails', match_params: {controller: [:emails, :alias_emails, :department_emails, :person_emails, :deprovision_schedules, :exclusions]}) { emails_path }
                   li = menu.add_item('Syncinators') { syncinators_path }
 
       .page.container-fluid

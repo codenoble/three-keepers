@@ -1,6 +1,6 @@
 h1 New Exclusion for #{@email}
 
-= form_for @form, url: person_email_exclusions_path(@email.id) do |f|
+= form_for @form, url: [@email, :exclusions] do |f|
   .row
     .col-xs-4
       .form-group
