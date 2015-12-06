@@ -2,7 +2,7 @@ h1 = @email.address
 
 dl.dl-horizontal
   dt Alias of
-  dd = link_to @email.person_email, person_email_path(@email.person_email.id)
+  dd = link_to @email.account_email, @email.account_email.path
   dt Current State
   dd class=@email.css_classes
     i.fa> class=@email.icon_class

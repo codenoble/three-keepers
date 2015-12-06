@@ -3,18 +3,12 @@ class DepartmentEmailPresenter < ApplicationPresenter
   # presenters present a database object but a hash works fine too.
   presents Hash
 
-  def id
-    model['id']
-  end
-
-  def address
-    model['address']
+  [:id, :address, :first_name, :last_name, :department, :title, :privacy, :org_unit_path, :state].each do |attrib|
+    define_method(attrib) do
+      model[attrib.to_s]
+    end
   end
   alias :to_s :address
-
-  def state
-    model['state']
-  end
 
   def people
     @people ||= PersonPresenter.map(person_models)

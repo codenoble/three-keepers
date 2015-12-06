@@ -1,0 +1,66 @@
+= form_for @form do |f|
+  .row
+    .col-xs-4
+      .form-group
+        = f.label :address
+          ' Email Address
+          small.text-muted required
+        = f.text_field :address, class: 'form-control'
+
+      .form-group
+        = f.label 'department_email_uuid_search'
+          ' Owners
+          small.text-muted required
+        .person-array-input
+          .list
+            - Array(f.object.uuids).each do |uuid|
+              .form-inline>
+                = text_field_tag 'ignoreme', PersonPresenter.new(Person.find_by(uuid: uuid)).name_and_id, class: 'form-control', disabled: true
+                button.btn.btn-danger.pull-right.delete type="button" = fa_icon('times')
+                = hidden_field_tag 'department_email[uuids][]', uuid, class: 'hidden-field'
+
+          .form-inline
+            = text_field_tag 'ignoreme', nil, id: 'department_email_uuid_search', class: 'search-field form-control', data: {lookup_url: search_people_path}
+            => hidden_field_tag 'department_email[uuids][]', nil, class: 'hidden-field'
+            button.btn.btn-success.add type="button" = fa_icon('plus')
+
+      .alert.alert-info
+        i.fa.fa-info-circle>
+        | These fields may not make sense for a department email, but they're Google's fields, not ours.
+
+      .form-group
+        = f.label :first_name do
+          ' First Name
+          small.text-muted reqired
+        = f.text_field :first_name, class: 'form-control'
+
+      .form-group
+        = f.label :last_name do
+          ' Last Name
+          small.text-muted reqired
+        = f.text_field :last_name, class: 'form-control'
+
+      .form-group
+        = f.label :department
+        = f.text_field :department, class: 'form-control'
+
+      .form-group
+        = f.label :title
+        = f.text_field :title, class: 'form-control'
+
+      .form-group
+        = f.label :privacy do
+          ' Privacy
+          small.text-muted hide from Google's Global Address List
+        br
+        .btn-group data-toggle="buttons"
+          = f.label nil, class: "btn btn-primary #{'active' unless f.object.privacy.to_s == 'true'}" do
+            = f.radio_button :privacy, false
+            | Public
+          = f.label nil, class: "btn btn-primary #{'active' if f.object.privacy.to_s == 'true'}" do
+            = f.radio_button :privacy, true
+            | Private
+
+  .row
+    .col-xs-12
+      = f.submit "#{@form.persisted? ? 'Update' : 'Create'} Department Email", class: 'btn btn-success'

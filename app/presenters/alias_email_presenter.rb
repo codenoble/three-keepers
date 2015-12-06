@@ -12,8 +12,8 @@ class AliasEmailPresenter < ApplicationPresenter
   end
   alias :to_s :address
 
-  def person_email
-    @person_email ||= PersonEmailPresenter.new(person_email_hash)
+  def account_email
+    @account_email ||= AccountEmailPresenter.new(account_email_hash)
   end
 
   def state
@@ -45,7 +45,7 @@ class AliasEmailPresenter < ApplicationPresenter
 
   private
 
-  def person_email_hash
-    @person_email_hash ||= GoogleSyncinator::APIClient::PersonEmails.new.show(id: model['account_email_id'].to_s).perform.parse
+  def account_email_hash
+    @account_email_hash ||= GoogleSyncinator::APIClient::AccountEmails.new.show(id: model['account_email_id'].to_s).perform.parse
   end
 end

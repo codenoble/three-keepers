@@ -1,6 +1,7 @@
 class DepartmentEmailForm < Reform::Form
   include Coercion
 
+  property :id, type: String
   property :address, type: String
   property :uuids, type: Array
   property :first_name, type: String
@@ -10,4 +11,8 @@ class DepartmentEmailForm < Reform::Form
   property :privacy, type: Boolean
 
   validates :address, :uuids, :first_name, :last_name, presence: true
+
+  def to_param
+    id.to_s
+  end
 end

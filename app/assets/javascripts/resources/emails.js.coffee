@@ -1,7 +1,8 @@
 label_field = $('.search-field')
-value_field = $('.hidden-field')
 
-if label_field.length == 1 && value_field.length == 1
+if label_field.length == 1
+  value_field = label_field.next('.hidden-field')
+
   label_field.autocomplete
     source: label_field.data('lookup-url'),
     select: (e, ui) ->

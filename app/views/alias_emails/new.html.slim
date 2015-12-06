@@ -5,7 +5,7 @@ h1 New Alias Email
     .col-xs-4
       .form-group
         = f.label 'alias_email_person_email_search', 'Alias of'
-        = f.text_field :account_email_id, id: 'alias_email_person_email_search', class: 'search-field form-control', data: {lookup_url: search_person_emails_path}
+        = f.text_field :account_email_id, id: 'alias_email_person_email_search', class: 'search-field form-control', data: {lookup_url: search_account_emails_path}
         = f.hidden_field :account_email_id, class: 'hidden-field'
 
       .form-group

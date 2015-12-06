@@ -25,6 +25,11 @@
         append_field(list, new_input, e) if e.which == 13 # Enter
       button.on 'click', (e) -> append_field(list, wrapper, e)
 
+      wrapper.find('button.delete').on 'click', (e) ->
+        row = $(e.currentTarget).closest('div')
+        row.find('input[type=hidden]').val('')
+        row.slideUp()
+
   append_field = (list, wrapper, e) ->
     new_inputs = wrapper.find('input').filter (i, el) ->
       $(el).parents('.list').length == 0

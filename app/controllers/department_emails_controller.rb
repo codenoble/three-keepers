@@ -11,11 +11,11 @@ class DepartmentEmailsController < ApplicationController
   end
 
   def new
-    @form = DepartmentEmailForm.new(new_email_model)
+    @form = DepartmentEmailForm.new(email_model)
   end
 
   def create
-    @form = DepartmentEmailForm.new(new_email_model)
+    @form = DepartmentEmailForm.new(email_model)
 
     # Strip out blank entries that can come through from blank form fields
     params[:department_email][:uuids] = Array(params[:department_email][:uuids]).reject(&:blank?)
@@ -33,22 +33,35 @@ class DepartmentEmailsController < ApplicationController
   end
 
   def edit
-    # TODO
+    @form = DepartmentEmailForm.new(email_model(raw_email))
+    mark_persisted @form
   end
 
   def update
-    # TODO
+    @form = DepartmentEmailForm.new(email_model(raw_email))
+
+    # Strip out blank entries that can come through from blank form fields
+    params[:department_email][:uuids] = Array(params[:department_email][:uuids]).reject(&:blank?)
+
+    if @form.validate(params[:department_email])
+      @form.save do |hash|
+        response = GoogleSyncinator::APIClient::DepartmentEmails.new.update(params[:department_email].merge id: params[:id]).perform
+
+        flash[:notice] = 'Sucessfully updated department email'
+        handle_response(response, route: :department_email, email_id_param: 'id')
+      end
+    else
+      flash.now[:alert] = @form.errors.full_messages.join('. ') + '.'
+      mark_persisted @form
+      render :new
+    end
   end
 
   private
 
-  def new_email_model
-    OpenStruct.new(address: nil, uuids: nil, first_name: nil, last_name: nil, department: nil, title: nil, privacy: false)
-  end
-
-  def update_email_model(address = nil)
-    # TODO
-    # OpenStruct.new(address: address)
+  def email_model(parameters = {})
+    defaults = {'id' => nil, 'address' => nil, 'uuids' => nil, 'first_name' => nil, 'last_name' => nil, 'department' => nil, 'title' => nil, 'privacy' => false}
+    OpenStruct.new(defaults.merge(parameters).slice(*defaults.keys))
   end
 
   def raw_email
@@ -59,5 +72,10 @@ class DepartmentEmailsController < ApplicationController
         response.parse
       end
     )
+  end
+
+  # Make form_for treat this like an edit and not a create
+  def mark_persisted(form)
+    def form.persisted?() true end
   end
 end

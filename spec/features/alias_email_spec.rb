@@ -27,6 +27,7 @@ describe 'alias emails' do
       before do
         allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with({}).and_return double(perform: double(headers: headers, parse: email_hashes))
         expect_any_instance_of(GoogleSyncinator::APIClient::AliasEmails).to receive(:show).and_return double(perform: double(status: 200, parse: alias_email_hash))
+        allow_any_instance_of(GoogleSyncinator::APIClient::AccountEmails).to receive(:show).and_return double(perform: double(status: 200, parse: person_email_hash))
         allow_any_instance_of(GoogleSyncinator::APIClient::PersonEmails).to receive(:show).and_return double(perform: double(status: 200, parse: person_email_hash))
         allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(q: alias_email_hash['address']).and_return double(perform: double(parse: []))
       end
@@ -55,6 +56,7 @@ describe 'alias emails' do
         allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with({}).and_return double(perform: double(headers: headers, parse: email_hashes))
         expect_any_instance_of(GoogleSyncinator::APIClient::AliasEmails).to receive(:create).with('account_email_id' => person_email_hash['id'], 'address' => address).and_return double(perform: double(success?: true, parse: email_hashes.first))
         expect_any_instance_of(GoogleSyncinator::APIClient::AliasEmails).to receive(:show).and_return double(perform: double(status: 200, parse: alias_email_hash))
+        allow_any_instance_of(GoogleSyncinator::APIClient::AccountEmails).to receive(:show).and_return double(perform: double(status: 200, parse: person_email_hash))
         allow_any_instance_of(GoogleSyncinator::APIClient::PersonEmails).to receive(:show).and_return double(perform: double(status: 200, parse: person_email_hash))
         allow_any_instance_of(GoogleSyncinator::APIClient::Emails).to receive(:index).with(q: alias_email_hash['address']).and_return double(perform: double(parse: []))
       end

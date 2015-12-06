@@ -3,6 +3,25 @@ h1 = @email.address
 dl.dl-horizontal
   dt Owners
   dd = @email.people.map { |p| link_to p, p }.join(', ').html_safe
+
+  dt First Name
+  dd = @email.first_name
+
+  dt Last Name
+  dd = @email.last_name
+
+  dt Department
+  dd = @email.department
+
+  dt Title
+  dd = @email.title
+
+  dt Privacy
+  dd = fa_check @email.privacy
+
+  dt Organization Unit Path
+  dd = @email.org_unit_path
+
   dt Current State
   dd class=@email.css_classes
     i.fa> class=@email.icon_class
@@ -66,3 +85,7 @@ h2 Exclusions
         td = excl.reason
         td = link_to department_email_exclusion_path(@email.id, excl.id), class: 'btn btn-danger btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
           = fa_icon 'trash', text: 'Delete'
+
+.buttons.text-right
+  = link_to edit_department_email_path(@email), class: 'btn btn-default' do
+    = fa_icon 'pencil', text: 'Edit Department Email'

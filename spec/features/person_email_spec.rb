@@ -65,7 +65,7 @@ describe 'person emails' do
       end
     end
 
-    describe 'person_email#edit' do
+    describe 'person_emails#edit' do
       let(:new_address) { 'private.bennedetto@biola.edu' }
 
       before do
