@@ -4,6 +4,7 @@ class DepartmentEmailForm < Reform::Form
   property :id, type: String
   property :address, type: String
   property :uuids, type: Array
+  property :password, type: String
   property :first_name, type: String
   property :last_name, type: String
   property :department, type: String

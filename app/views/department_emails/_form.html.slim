@@ -24,6 +24,16 @@
             => hidden_field_tag 'department_email[uuids][]', nil, class: 'hidden-field'
             button.btn.btn-success.add type="button" = fa_icon('plus')
 
+      .form-group
+        = f.label :password
+        .form-inline
+          => f.password_field :password, class: 'form-control', value: (random_password if action_name == 'new'), style: 'width: 90%'
+          button.btn.btn-default.show-password type="button"
+            i.fa.fa-eye
+        .form-inline
+          => check_box_tag :email_password, '1', params.has_key?(:email_password) ? params[:email_password] : (action_name == 'new')
+          = label :email_password, 'Email password to owners', for: :email_password
+
       .alert.alert-info
         i.fa.fa-info-circle>
         | These fields may not make sense for a department email, but they're Google's fields, not ours.

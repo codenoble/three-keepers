@@ -24,6 +24,10 @@ class DepartmentEmailsController < ApplicationController
       @form.save do |hash|
         response = GoogleSyncinator::APIClient::DepartmentEmails.new.create(params[:department_email]).perform
 
+        if response.success? && @form.password.present? && params[:email_password]
+          DepartmentEmailMailer.new_email(@form).deliver
+        end
+
         handle_response(response, route: :department_email, email_id_param: 'id')
       end
     else
@@ -38,14 +42,23 @@ class DepartmentEmailsController < ApplicationController
   end
 
   def update
-    @form = DepartmentEmailForm.new(email_model(raw_email))
-
     # Strip out blank entries that can come through from blank form fields
     params[:department_email][:uuids] = Array(params[:department_email][:uuids]).reject(&:blank?)
+    params[:department_email].delete(:password) if params[:department_email][:password].blank?
+
+    @form = DepartmentEmailForm.new(email_model(raw_email))
 
     if @form.validate(params[:department_email])
       @form.save do |hash|
         response = GoogleSyncinator::APIClient::DepartmentEmails.new.update(params[:department_email].merge id: params[:id]).perform
+
+        if response.success? && params[:email_password]
+          if @form.password.present?
+            DepartmentEmailMailer.changed_password(@form).deliver
+          else
+            flash[:alert] = "Can't email the password unless it's being changed"
+          end
+        end
 
         flash[:notice] = 'Sucessfully updated department email'
         handle_response(response, route: :department_email, email_id_param: 'id')
