@@ -19,7 +19,9 @@ Rails.application.routes.draw do
     resources :deprovision_schedules, only: [:new, :create, :update, :destroy]
     resources :exclusions, only: [:new, :create, :destroy]
   end
-  resources :alias_emails, only: [:show, :new, :create]
+  resources :alias_emails, only: [:show, :new, :create] do
+    resources :deprovision_schedules, only: [:new, :create, :update, :destroy]
+  end
 
   resources :syncinators, only: [:index, :show]
   resources :changesets, only: :show do

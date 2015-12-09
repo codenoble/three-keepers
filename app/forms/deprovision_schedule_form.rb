@@ -2,6 +2,7 @@ class DeprovisionScheduleForm < Reform::Form
   include Coercion
 
   ACTIONS = [:notify_of_inactivity, :notify_of_closure, :suspend, :delete, :activate]
+  ALIAS_ACTIONS = [:delete]
 
   property :email_id, type: String
   property :action, type: Symbol
@@ -12,7 +13,11 @@ class DeprovisionScheduleForm < Reform::Form
   validates :action, inclusion: {in: ACTIONS}
 
   # Actions for a FormBuilder#select drop down
-  def action_options
-    ACTIONS.map(&:to_s).map { |a| [a.titleize, a] }
+  def action_options(email)
+    if email.is_a? AliasEmailPresenter
+      ALIAS_ACTIONS.map(&:to_s).map { |a| [a.titleize, a] }
+    else
+      ACTIONS.map(&:to_s).map { |a| [a.titleize, a] }
+    end
   end
 end

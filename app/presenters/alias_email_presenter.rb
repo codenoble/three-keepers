@@ -20,6 +20,10 @@ class AliasEmailPresenter < ApplicationPresenter
     model['state']
   end
 
+  def deprovision_schedules
+    @deprovision_schedules ||= DeprovisionSchedulePresenter.map(model['deprovision_schedules'].to_a)
+  end
+
   def css_classes
     case state
     when 'active'

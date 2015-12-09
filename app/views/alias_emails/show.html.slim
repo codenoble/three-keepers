@@ -1,19 +1,57 @@
 h1 = @email.address
 
-dl.dl-horizontal
-  dt Alias of
-  dd = link_to @email.account_email, @email.account_email.path
-  dt Current State
-  dd class=@email.css_classes
-    i.fa> class=@email.icon_class
-    = @email.state
+.row
+  .col-md-6
+    dl.dl-horizontal
+      dt Alias of
+      dd = link_to @email.account_email, @email.account_email.path
+      dt Current State
+      dd class=@email.css_classes
+        i.fa> class=@email.icon_class
+        = @email.state
 
-h2 Other Email Owners
-- if @other_emails.empty?
-  .alert.alert-info
-    i.fa.fa-info-circle>
-    | No other email owners were found
-- else
-  .media
-    ul.media-list.emails
-      = render @other_emails
+    h2 Other Email Owners
+    - if @other_emails.empty?
+      .alert.alert-info
+        i.fa.fa-info-circle>
+        | No other email owners were found
+    - else
+      .media
+        ul.media-list.emails
+          = render @other_emails
+
+  .col-md-6
+    .header
+      .pull-right
+        = link_to new_alias_email_deprovision_schedule_path(@email.id), class: 'btn btn-success' do
+          = fa_icon 'plus', text: 'New Deprovision Schedule'
+      h2 Deprovision Schedules
+    - if @email.deprovision_schedules.empty?
+      .alert.alert-info
+        i.fa.fa-info-circle>
+        | No deprovision schedules were found
+    - else
+      table.table.table-striped
+        tr
+          th Action
+          th Reason
+          th Scheduled
+          th Completed
+          th Action
+        - @email.deprovision_schedules.each do |sched|
+          tr class=(sched.canceled? ? 'canceled text-muted' : '')
+            td class=sched.css_classes
+              i.fa> class=sched.icon_class
+              = sched.action.titleize
+            td = sched.reason
+            td = sched.scheduled_for.to_formatted_s(:long)
+            td
+              - if sched.canceled?
+                | Canceled
+              - else
+                = sched.completed_at.try(:to_formatted_s, :long)
+            td
+              =' link_to alias_email_deprovision_schedule_path(@email.id, sched.id, canceled: true), class: "btn btn-warning btn-xs #{sched.completed_at || sched.canceled? ? 'disabled' : ''}", method: :put, data: {confirm: 'Are you sure?'} do
+                = fa_icon 'ban', text: 'Cancel'
+              = link_to alias_email_deprovision_schedule_path(@email.id, sched.id), class: "btn btn-danger btn-xs #{sched.completed_at ? 'disabled' : ''}", method: :delete, data: {confirm: 'Are you sure?'} do
+                = fa_icon 'trash', text: 'Delete'
