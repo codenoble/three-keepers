@@ -2,4 +2,8 @@ body.person_emails.show {
   h1 small a {
     font-size: 14pt;
   }
+
+  .col-md-6 > .header:first-child h2{
+    margin-top: 0;
+  }
 }

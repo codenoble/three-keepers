@@ -22,6 +22,10 @@ class DepartmentEmailPresenter < ApplicationPresenter
     @exclusions ||= ExclusionPresenter.map(model['exclusions'].to_a)
   end
 
+  def alias_emails
+    @alias_emails ||= AliasEmailPresenter.map(model['alias_emails'].to_a)
+  end
+
   def exclusion_summary
     [].tap { |summaries|
       {past?: 'passed', current?: 'active', future?: 'upcoming'}.each do |meth, adj|
