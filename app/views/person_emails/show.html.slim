@@ -41,63 +41,6 @@ h1
           = render @other_emails
 
   .col-md-6
-    .header
-      .pull-right
-        = link_to new_person_email_deprovision_schedule_path(@email.id), class: 'btn btn-success' do
-          = fa_icon 'plus', text: 'New Deprovision Schedule'
-      h2 Deprovision Schedules
-    - if @email.deprovision_schedules.empty?
-      .alert.alert-info
-        i.fa.fa-info-circle>
-        | No deprovision schedules were found
-    - else
-      table.table.table-striped
-        tr
-          th Action
-          th Reason
-          th Scheduled
-          th Completed
-          th Action
-        - @email.deprovision_schedules.each do |sched|
-          tr class=(sched.canceled? ? 'canceled text-muted' : '')
-            td class=sched.css_classes
-              i.fa> class=sched.icon_class
-              = sched.action.titleize
-            td = sched.reason
-            td = sched.scheduled_for.to_formatted_s(:long)
-            td
-              - if sched.canceled?
-                | Canceled
-              - else
-                = sched.completed_at.try(:to_formatted_s, :long)
-            td
-              =' link_to person_email_deprovision_schedule_path(@email.id, sched.id, canceled: true), class: "btn btn-warning btn-xs #{sched.completed_at || sched.canceled? ? 'disabled' : ''}", method: :put, data: {confirm: 'Are you sure?'} do
-                = fa_icon 'ban', text: 'Cancel'
-              = link_to person_email_deprovision_schedule_path(@email.id, sched.id), class: "btn btn-danger btn-xs #{sched.completed_at ? 'disabled' : ''}", method: :delete, data: {confirm: 'Are you sure?'} do
-                = fa_icon 'trash', text: 'Delete'
+    = render 'deprovision_schedules/table'
 
-    .header
-      .pull-right
-        = link_to new_person_email_exclusion_path(@email.id), class: 'btn btn-success' do
-          = fa_icon 'plus', text: 'New Exclusion'
-      h2 Exclusions
-    - if @email.exclusions.empty?
-      .alert.alert-info
-        i.fa.fa-info-circle>
-        | No exclusions were found
-    - else
-      table.table.table-striped
-        tr
-          th Start
-          th End
-          th Creator
-          th Reason
-          th Action
-        - @email.exclusions.each do |excl|
-          tr
-            td = excl.starts_at.to_formatted_s(:long)
-            td = excl.ends_at.try(:to_formatted_s, :long) || '&infin;'.html_safe
-            td = link_to excl.creator, excl.creator
-            td = excl.reason
-            td = link_to person_email_exclusion_path(@email.id, excl.id), class: 'btn btn-danger btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
-              = fa_icon 'trash', text: 'Delete'
+    = render 'exclusions/table'

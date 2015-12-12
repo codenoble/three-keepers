@@ -1,0 +1,25 @@
+.header
+  .pull-right
+    = link_to [:new, @email, :exclusion], class: 'btn btn-success' do
+      = fa_icon 'plus', text: 'New Exclusion'
+  h2 Exclusions
+- if @email.exclusions.empty?
+  .alert.alert-info
+    i.fa.fa-info-circle>
+    | No exclusions were found
+- else
+  table.table.table-striped
+    tr
+      th Start
+      th End
+      th Creator
+      th Reason
+      th Action
+    - @email.exclusions.each do |excl|
+      tr
+        td = excl.starts_at.to_formatted_s(:long)
+        td = excl.ends_at.try(:to_formatted_s, :long) || '&infin;'.html_safe
+        td = link_to excl.creator, excl.creator
+        td = excl.reason
+        td = link_to [@email, excl], class: 'btn btn-danger btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
+          = fa_icon 'trash', text: 'Delete'

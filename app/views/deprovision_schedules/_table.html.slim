@@ -1,0 +1,34 @@
+.header
+  .pull-right
+    = link_to [:new, @email, :deprovision_schedule], class: 'btn btn-success' do
+      = fa_icon 'plus', text: 'New Deprovision Schedule'
+  h2 Deprovision Schedules
+- if @email.deprovision_schedules.empty?
+  .alert.alert-info
+    i.fa.fa-info-circle>
+    | No deprovision schedules were found
+- else
+  table.table.table-striped
+    tr
+      th Action
+      th Reason
+      th Scheduled
+      th Completed
+      th Action
+    - @email.deprovision_schedules.each do |sched|
+      tr class=(sched.canceled? ? 'canceled text-muted' : '')
+        td class=sched.css_classes
+          i.fa> class=sched.icon_class
+          = sched.action.titleize
+        td = sched.reason
+        td = sched.scheduled_for.to_formatted_s(:long)
+        td
+          - if sched.canceled?
+            | Canceled
+          - else
+            = sched.completed_at.try(:to_formatted_s, :long)
+        td
+          =' link_to [@email, sched, canceled: true], class: "btn btn-warning btn-xs #{sched.completed_at || sched.canceled? ? 'disabled' : ''}", method: :put, data: {confirm: 'Are you sure?'} do
+            = fa_icon 'ban', text: 'Cancel'
+          = link_to [@email, sched], class: "btn btn-danger btn-xs #{sched.completed_at ? 'disabled' : ''}", method: :delete, data: {confirm: 'Are you sure?'} do
+            = fa_icon 'trash', text: 'Delete'
