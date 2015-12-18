@@ -12,6 +12,7 @@ gem 'google_syncinator_api_client', github: 'codenoble/google-syncinator-api-cli
 gem 'jquery-rails', '~> 3.1.3'
 gem 'jquery-ui-rails'
 gem 'kaminari-bootstrap'
+gem 'madgab'
 gem 'newrelic_rpm'
 gem 'pinglish'
 gem 'puma'
